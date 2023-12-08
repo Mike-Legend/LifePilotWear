@@ -1,9 +1,3 @@
-/* While this template provides a good starting point for using Wear Compose, you can always
- * take a look at https://github.com/android/wear-os-samples/tree/main/ComposeStarter and
- * https://github.com/android/wear-os-samples/tree/main/ComposeAdvanced to find the most up to date
- * changes to the libraries and their usages.
- */
-
 package com.amoebasoft.lifepilotwear.presentation
 
 import android.os.Bundle
@@ -29,18 +23,28 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            WearApp("Android")
+            //WearApp("Android")
         }
     }
 }
 
+
+
+
+
+
+
+/*
+
 @Composable
 fun WearApp(greetingName: String) {
     LifePilotWearTheme {
-        /* If you have enough items in your list, use [ScalingLazyColumn] which is an optimized
+        */
+/* If you have enough items in your list, use [ScalingLazyColumn] which is an optimized
          * version of LazyColumn for wear devices with some added features. For more information,
          * see d.android.com/wear/compose.
-         */
+         *//*
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -66,4 +70,4 @@ fun Greeting(greetingName: String) {
 @Composable
 fun DefaultPreview() {
     WearApp("Preview Android")
-}
+}*/
