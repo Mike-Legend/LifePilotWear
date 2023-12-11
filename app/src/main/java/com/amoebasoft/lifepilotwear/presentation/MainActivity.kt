@@ -1,73 +1,60 @@
 package com.amoebasoft.lifepilotwear.presentation
 
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
+import androidx.viewpager2.widget.ViewPager2
 import com.amoebasoft.lifepilotwear.R
-import com.amoebasoft.lifepilotwear.presentation.theme.LifePilotWearTheme
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+
 
 class MainActivity : ComponentActivity() {
+
+    //Google Sign in variables
+    //var gso: GoogleSignInOptions? = null
+    //var gsc: GoogleSignInClient? = null
+    //var account: GoogleSignInAccount? = null
+    //private var mAuth: FirebaseAuth? = null
+    //var user: FirebaseUser? = null
+    //var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            //WearApp("Android")
+            setContentView(R.layout.home)
+            val images = listOf(
+                R.drawable.blank,
+                R.drawable.blank
+            )
+            val adapter = ViewPagerAdapter(images)
+            findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
+
+            //Google Sign In variables
+            //gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            //    .requestIdToken(getString(R.string.server_client_id)).requestEmail().build()
+            //gsc = GoogleSignIn.getClient(this, gso)
+            //mAuth = FirebaseAuth.getInstance()
+            //user = mAuth.getCurrentUser() //is null if user is not signed in
+            //account = GoogleSignIn.getLastSignedInAccount(this) //is null if user is not signed in
         }
+
+        //Sensor Requirements
+        val mSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        val mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)
+        val mStepCountSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        val mStepDetectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        //calorie tracker inputs / data pulls from firebase
+        //menBMR = 66.47 + (6.24 x weight) + (12.7 x height) - (6.755 x age)
+        //womenBMR = 655.1 + (4.35 x weight) + (4.7 x height) - (4.7 x age)
+
+        //val test = findViewById<EditText>(R.id.time)
+        //test.setHint(mHeartRateSensor.toString())
     }
 }
-
-
-
-
-
-
-
-/*
-
-@Composable
-fun WearApp(greetingName: String) {
-    LifePilotWearTheme {
-        */
-/* If you have enough items in your list, use [ScalingLazyColumn] which is an optimized
-         * version of LazyColumn for wear devices with some added features. For more information,
-         * see d.android.com/wear/compose.
-         *//*
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background),
-            verticalArrangement = Arrangement.Center
-        ) {
-            Greeting(greetingName = greetingName)
-        }
-    }
-}
-
-@Composable
-fun Greeting(greetingName: String) {
-    Text(
-        modifier = Modifier.fillMaxWidth(),
-        textAlign = TextAlign.Center,
-        color = MaterialTheme.colors.primary,
-        text = stringResource(R.string.hello_world, greetingName)
-    )
-}
-
-@Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
-@Composable
-fun DefaultPreview() {
-    WearApp("Preview Android")
-}*/
