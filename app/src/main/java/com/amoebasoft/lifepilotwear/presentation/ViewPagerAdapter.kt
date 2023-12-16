@@ -11,24 +11,14 @@ class ViewPagerAdapter (
 ) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
     inner class ViewPagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private var start =+ 0
-    private var layout =+ 0
+    private var active = R.layout.pageviewermain
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
         if(start == 0) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.sync, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
             start += 1
             return ViewPagerViewHolder(view)
         }
-        if (layout == 0) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.pageviewermain, parent, false)
-            return ViewPagerViewHolder(view)
-        } else if (layout == 1) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.sync, parent, false)
-            return ViewPagerViewHolder(view)
-        } else if (layout == 2) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.buttons, parent, false)
-            return ViewPagerViewHolder(view)
-        }
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.sync, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
         return ViewPagerViewHolder(view)
     }
     override fun getItemCount(): Int {
@@ -36,11 +26,12 @@ class ViewPagerAdapter (
     }
     override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
         val curImage = images[position]
-        if (start == 1) {
-            layout = 1
-            start += 1
-        } else {
-            layout = images[position]
+        if (curImage == images[0]) {
+            active = R.layout.sync
+        } else if (curImage == images[1]) {
+            active = R.layout.buttons
+        } else if (curImage == images[2]) {
+            active = R.layout.sync
         }
         holder.itemView.setBackgroundResource(curImage)
     }

@@ -30,9 +30,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             setContentView(R.layout.home)
             val images = listOf(
-                R.drawable.blank,
-                R.drawable.blank,
-                R.drawable.blank
+                R.drawable.blank1,
+                R.drawable.blank2,
+                R.drawable.blank3
             )
             val adapter = ViewPagerAdapter(images)
             findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
@@ -57,5 +57,10 @@ class MainActivity : ComponentActivity() {
 
         //val test = findViewById<EditText>(R.id.time)
         //test.setHint(mHeartRateSensor.toString())
+    }
+
+    override fun void onClick(View view) //add button with an else-if statement
+    {
+
     }
 }
