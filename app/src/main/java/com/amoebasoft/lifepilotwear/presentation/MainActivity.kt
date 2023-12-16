@@ -3,6 +3,10 @@ package com.amoebasoft.lifepilotwear.presentation
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.view.View
+import android.view.View.OnClickListener
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.viewpager2.widget.ViewPager2
@@ -15,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), View.OnClickListener {
 
     //Google Sign in variables
     //var gso: GoogleSignInOptions? = null
@@ -59,8 +63,13 @@ class MainActivity : ComponentActivity() {
         //test.setHint(mHeartRateSensor.toString())
     }
 
-    override fun void onClick(View view) //add button with an else-if statement
-    {
+    override fun onClick(view: View?) {
+        val id = view?.id
+
+        if(id == R.id.button5) {
+            setContentView(R.layout.exercises)
+        }
 
     }
+
 }

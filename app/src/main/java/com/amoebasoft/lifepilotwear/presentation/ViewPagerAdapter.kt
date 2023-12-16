@@ -11,7 +11,7 @@ class ViewPagerAdapter (
 ) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
     inner class ViewPagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private var start =+ 0
-    private var active = R.layout.pageviewermain
+    private var active = R.layout.quickdata
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
         if(start == 0) {
             val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
