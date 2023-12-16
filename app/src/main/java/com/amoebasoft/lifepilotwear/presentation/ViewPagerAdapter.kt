@@ -12,6 +12,7 @@ class ViewPagerAdapter (
     inner class ViewPagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private var start =+ 0
     private var active = R.layout.quickdata
+    //private var editor = R.layout.home:ImageView;
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
         if(start == 0) {
             val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
@@ -19,6 +20,9 @@ class ViewPagerAdapter (
             return ViewPagerViewHolder(view)
         }
         val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
+        /*if (active == R.layout.sync) {
+            home = (context as MainActivity).findViewById<ImageView>(R.id.maindot2)
+        }*/
         return ViewPagerViewHolder(view)
     }
     override fun getItemCount(): Int {

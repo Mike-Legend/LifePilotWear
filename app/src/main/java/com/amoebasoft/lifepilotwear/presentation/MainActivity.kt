@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.EditText
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.viewpager2.widget.ViewPager2
@@ -17,6 +18,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import java.sql.Time
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class MainActivity : ComponentActivity(), View.OnClickListener {
@@ -40,6 +44,12 @@ class MainActivity : ComponentActivity(), View.OnClickListener {
             )
             val adapter = ViewPagerAdapter(images)
             findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
+
+            val timeEdit = findViewById<EditText>(R.id.time)
+            //val curTime = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("HH:mm")
+            val curTime = LocalDateTime.now().format(formatter)
+            timeEdit.setText(curTime)
 
             //Google Sign In variables
             //gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
