@@ -31,13 +31,10 @@ class MainActivity : ComponentActivity() {
             setContentView(R.layout.home)
             val images = listOf(
                 R.drawable.blank,
+                R.drawable.blank,
                 R.drawable.blank
             )
-            val layout = listOf(
-                R.layout.buttons,
-                R.layout.sync
-            )
-            val adapter = ViewPagerAdapter(layout)
+            val adapter = ViewPagerAdapter(images)
             findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
 
             //Google Sign In variables
