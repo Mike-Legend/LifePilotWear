@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:viewBindingIgnore="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/bpmtext"
+            android:layout_width="80dp"
+            android:layout_height="121dp"
+            android:layout_marginTop="-6dp"
+            android:layout_marginEnd="35dp"
+            android:gravity="center"
+            android:text="135"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/bpmimage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bpmimage"
+            android:layout_width="36dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="95dp"
+            android:layout_marginBottom="85dp"
+            android:src="@drawable/bpm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/kcaltext"
+            android:layout_width="80dp"
+            android:layout_height="121dp"
+            android:layout_marginTop="-70dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:text="2135"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/calimage"
+            app:layout_constraintTop_toBottomOf="@+id/bpmtext" />
+
+        <ImageView
+            android:id="@+id/calimage"
+            android:layout_width="54dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="95dp"
+            android:layout_marginBottom="85dp"
+            android:src="@drawable/calories"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bpmimage" />
+
+        <TextView
+            android:id="@+id/setpstext"
+            android:layout_width="104dp"
+            android:layout_height="117dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="-17dp"
+            android:layout_marginEnd="3dp"
+            android:gravity="center"
+            android:text="10872"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shoeimage"
+            app:layout_constraintTop_toBottomOf="@+id/bpmtext" />
+
+        <ImageView
+            android:id="@+id/shoeimage"
+            android:layout_width="44dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="-15dp"
+            android:layout_marginEnd="95dp"
+            android:src="@drawable/shoe"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calimage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
