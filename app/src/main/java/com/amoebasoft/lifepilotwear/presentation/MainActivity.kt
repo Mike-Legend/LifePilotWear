@@ -78,9 +78,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         //calorie tracker inputs / data pulls from firebase
         //menBMR = 66.47 + (6.24 x weight) + (12.7 x height) - (6.755 x age)
         //womenBMR = 655.1 + (4.35 x weight) + (4.7 x height) - (4.7 x age)
-
-        //val test = findViewById<EditText>(R.id.time)
-        //test.setHint(mHeartRateSensor.toString())
     }
 
     override fun onResume() {
