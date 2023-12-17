@@ -16,7 +16,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
-
 class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListener {
 
     //Google Sign in variables
