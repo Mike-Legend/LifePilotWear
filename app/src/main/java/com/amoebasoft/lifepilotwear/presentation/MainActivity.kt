@@ -35,8 +35,8 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     override fun onSensorChanged(event: SensorEvent?) {
         if (event != null) {
             if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
-                setContentView(R.layout.quickdata)
-                findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
+                //setContentView(R.layout.quickdata)
+                //findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
             }
         }
     }
