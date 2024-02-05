@@ -67,6 +67,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             //mAuth = FirebaseAuth.getInstance()
             //user = mAuth.getCurrentUser() //is null if user is not signed in
             //account = GoogleSignIn.getLastSignedInAccount(this) //is null if user is not signed in
+
         }
 
         //Sensor Requirements
