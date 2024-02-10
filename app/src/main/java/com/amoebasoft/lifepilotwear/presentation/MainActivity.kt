@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.ui.platform.LocalView
 import androidx.viewpager2.widget.ViewPager2
 import com.amoebasoft.lifepilotwear.R
 import java.time.LocalDateTime
@@ -34,17 +35,18 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     override fun onSensorChanged(event: SensorEvent?) {
         if (event != null) {
             if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
-                //setContentView(R.layout.quickdata)
-                //findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
+                setContentView(R.layout.quickdata)
+                findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
+
+                sensorMethod()
+
                 //val str: String = textView.text.toString()
                 //Integer.toString(sensorEvent.sensor.getType())
                 //showHeartRate.setText(heartRateValue)
 
-                //val bp: TextView = findViewById(R.id.bpmtext)
-                //bp.setOnClickListener {
-                    //bp.setText(event.values[0].toString())
 
-                //}
+
+
             }
         }
     }
@@ -108,4 +110,21 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
 
     }
 
+    private fun sensorMethod() {
+        setContentView(R.layout.home)
+        //slider views
+        val images = listOf(
+            R.drawable.blank1,
+            R.drawable.blank2,
+            R.drawable.blank3
+        )
+        val adapter = ViewPagerAdapter(images)
+        findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
+
+        //set home time
+        val timeEdit = findViewById<EditText>(R.id.time)
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+        val curTime = LocalDateTime.now().format(formatter)
+        timeEdit.setText(curTime)
+    }
 }
