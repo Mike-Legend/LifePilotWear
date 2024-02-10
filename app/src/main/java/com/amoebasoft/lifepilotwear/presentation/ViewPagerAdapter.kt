@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.PagerAdapter
 import com.amoebasoft.lifepilotwear.R
 
 class ViewPagerAdapter (
@@ -43,5 +44,8 @@ class ViewPagerAdapter (
         }
         holder.itemView.setBackgroundResource(curImage)
     }
+
+
+
 }
 

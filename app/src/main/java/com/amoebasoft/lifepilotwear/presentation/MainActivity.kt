@@ -2,15 +2,16 @@ package com.amoebasoft.lifepilotwear.presentation
 
 import android.hardware.Sensor
 import android.hardware.SensorEvent
-import android.hardware.SensorManager
 import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.ui.platform.LocalView
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.PagerAdapter.POSITION_NONE
 import androidx.viewpager2.widget.ViewPager2
 import com.amoebasoft.lifepilotwear.R
 import java.time.LocalDateTime
@@ -38,12 +39,9 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                 setContentView(R.layout.quickdata)
                 findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
 
+
                 sensorMethod()
 
-
-                //val str: String = textView.text.toString()
-                //Integer.toString(sensorEvent.sensor.getType())
-                //showHeartRate.setText(heartRateValue)
 
 
 
@@ -121,17 +119,16 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             R.drawable.blank3
         )
         val adapter = ViewPagerAdapter(images)
-        adapter.notifyDataSetChanged()
         findViewById<ViewPager2>(R.id.viewPager).adapter = null
+        findViewById<ViewPager2>(R.id.viewPager).adapter?.notifyDataSetChanged()
         findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
-        findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
+        //findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
+        findViewById<ViewPager2>(R.id.viewPager).adapter?.notifyDataSetChanged()
 
         //set home time
         val timeEdit = findViewById<EditText>(R.id.time)
         val formatter = DateTimeFormatter.ofPattern("HH:mm")
         val curTime = LocalDateTime.now().format(formatter)
         timeEdit.setText(curTime)
-
-
     }
 }
