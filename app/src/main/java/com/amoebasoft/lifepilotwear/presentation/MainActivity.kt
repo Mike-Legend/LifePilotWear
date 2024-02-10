@@ -40,6 +40,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
 
                 sensorMethod()
 
+
                 //val str: String = textView.text.toString()
                 //Integer.toString(sensorEvent.sensor.getType())
                 //showHeartRate.setText(heartRateValue)
@@ -64,6 +65,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             )
             val adapter = ViewPagerAdapter(images)
             findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
+            findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
 
             //set home time
             val timeEdit = findViewById<EditText>(R.id.time)
@@ -119,12 +121,17 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             R.drawable.blank3
         )
         val adapter = ViewPagerAdapter(images)
+        adapter.notifyDataSetChanged()
+        findViewById<ViewPager2>(R.id.viewPager).adapter = null
         findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
+        findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
 
         //set home time
         val timeEdit = findViewById<EditText>(R.id.time)
         val formatter = DateTimeFormatter.ofPattern("HH:mm")
         val curTime = LocalDateTime.now().format(formatter)
         timeEdit.setText(curTime)
+
+
     }
 }
