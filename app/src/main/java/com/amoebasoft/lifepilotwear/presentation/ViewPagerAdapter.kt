@@ -1,8 +1,11 @@
 package com.amoebasoft.lifepilotwear.presentation
 
+import android.hardware.Sensor
+import android.hardware.SensorEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.amoebasoft.lifepilotwear.R
 
@@ -13,6 +16,25 @@ class ViewPagerAdapter (
     private var start =+ 0
     private var active = R.layout.quickdata
     //private var editor = R.layout.home:ImageView;
+
+    fun onSensorChanged(event: SensorEvent?) {
+        if (event != null) {
+            if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
+                //setContentView(R.layout.quickdata)
+                findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
+                //val str: String = textView.text.toString()
+                //Integer.toString(sensorEvent.sensor.getType())
+                //showHeartRate.setText(heartRateValue)
+
+                //val bp: TextView = findViewById(R.id.bpmtext)
+                //bp.setOnClickListener {
+                //bp.setText(event.values[0].toString())
+
+                //}
+            }
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
         if(start == 0) {
             val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
