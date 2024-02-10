@@ -35,7 +35,16 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         if (event != null) {
             if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
                 //setContentView(R.layout.quickdata)
-                //findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
+                findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
+                //val str: String = textView.text.toString()
+                //Integer.toString(sensorEvent.sensor.getType())
+                //showHeartRate.setText(heartRateValue)
+
+                //val bp: TextView = findViewById(R.id.bpmtext)
+                //bp.setOnClickListener {
+                    //bp.setText(event.values[0].toString())
+
+                //}
             }
         }
     }
