@@ -2,6 +2,7 @@ package com.amoebasoft.lifepilotwear.presentation
 
 import android.hardware.Sensor
 import android.hardware.SensorEvent
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,16 @@ import androidx.viewpager.widget.PagerAdapter
 import com.amoebasoft.lifepilotwear.R
 
 class ViewPagerAdapter (
-    val images: List<Int>
+    var images: MutableList<Int>
 ) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
     inner class ViewPagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private var start =+ 0
     private var active = R.layout.quickdata
     //private var editor = R.layout.home:ImageView;
+
+    companion object {
+        var latestSensorValue: Float = 0f
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
         if(start == 0) {
@@ -35,17 +40,29 @@ class ViewPagerAdapter (
     }
     override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
         val curImage = images[position]
-        if (curImage == images[0]) {
-            active = R.layout.sync
-        } else if (curImage == images[1]) {
-            active = R.layout.buttons
-        } else if (curImage == images[2]) {
-            active = R.layout.sync
+        val activeLayoutRes = when (curImage) {
+            R.layout.quickdata -> R.layout.quickdata
+            R.layout.sync -> R.layout.sync
+            R.layout.buttons -> R.layout.buttons
+            else -> R.layout.quickdata // Default to quickdata layout if unknown
         }
-        holder.itemView.setBackgroundResource(curImage)
+
+        val inflater = LayoutInflater.from(holder.itemView.context)
+        val inflatedView = inflater.inflate(activeLayoutRes, holder.itemView as ViewGroup?, false)
+        (holder.itemView as? ViewGroup)?.removeAllViews()
+        (holder.itemView as? ViewGroup)?.addView(inflatedView)
+
+        // Update UI based on sensor data
+        if (activeLayoutRes == R.layout.quickdata) {
+            val bpmTextView = inflatedView.findViewById<TextView>(R.id.bpmtext)
+            bpmTextView.text = latestSensorValue.toString()
+        }
     }
-
-
-
+    fun updateData(newImages: List<Int>) {
+        //images = newImages.toMutableList()
+        images.clear()
+        images.addAll(newImages)
+        notifyDataSetChanged()
+    }
 }
 

@@ -11,8 +11,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.PagerAdapter.POSITION_NONE
 import androidx.viewpager2.widget.ViewPager2
 import com.amoebasoft.lifepilotwear.R
 import java.time.LocalDateTime
@@ -31,7 +29,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
 
     private lateinit var mSensorManager : SensorManager
     private var mHeartRateSensor : Sensor ?= null
-    private lateinit var viewPagerAdapter: ViewPagerAdapter
     override fun onAccuracyChanged(sensor: Sensor?, bpm: Int) {
         return
     }
@@ -41,15 +38,17 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                 //setContentView(R.layout.quickdata)
                 //findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
 
-                val bpmLayout = LayoutInflater.from(this).inflate(R.layout.quickdata, null)
-                //val bpmTextView = bpmLayout.findViewById<TextView>(R.id.bpmtext)
-                //bpmTextView.text = event.values[0].toString()
+                /*val bpmLayout = LayoutInflater.from(this).inflate(R.layout.quickdata, null)
+                val bpmTextView = bpmLayout.findViewById<TextView>(R.id.bpmtext)
+                bpmTextView.text = event.values[0].toString()
 
-                setContentView(bpmLayout)
-                findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
+                setContentView(bpmLayout)*/
+                //findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
 
-                bpmLayout.requestLayout()
-                bpmLayout.invalidate()
+                ViewPagerAdapter.latestSensorValue = event.values[0]
+
+                //bpmLayout.requestLayout()
+                //bpmLayout.invalidate()
 
                 sensorMethod()
             }
@@ -62,14 +61,18 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             setContentView(R.layout.home)
 
             //slider views
-            val images = listOf(
+            val images = mutableListOf(
+                R.layout.quickdata,
+                R.layout.sync,
+                R.layout.buttons
+            )
+            /*val images = listOf(
                 R.drawable.blank1,
                 R.drawable.blank2,
                 R.drawable.blank3
-            )
-            viewPagerAdapter = ViewPagerAdapter(images)
-            //val adapter = ViewPagerAdapter(images)
-            findViewById<ViewPager2>(R.id.viewPager).adapter = viewPagerAdapter
+            )*/
+            val adapter = ViewPagerAdapter(images)
+            findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
             findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
 
             //set home time
@@ -85,6 +88,8 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             //mAuth = FirebaseAuth.getInstance()
             //user = mAuth.getCurrentUser() //is null if user is not signed in
             //account = GoogleSignIn.getLastSignedInAccount(this) //is null if user is not signed in
+
+
 
         }
 
@@ -119,26 +124,21 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
 
     private fun sensorMethod() {
         setContentView(R.layout.home)
-        //slider views
-        val images = listOf(
-            R.drawable.blank1,
-            R.drawable.blank2,
-            R.drawable.blank3
+
+        // Get ViewPager reference
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+
+        // Set adapter for ViewPager
+        val images = mutableListOf(
+            R.layout.quickdata,
+            R.layout.sync,
+            R.layout.buttons
         )
-        //val adapter = ViewPagerAdapter(images)
-        //findViewById<ViewPager2>(R.id.viewPager).adapter = null
-        //findViewById<ViewPager2>(R.id.viewPager).adapter?.notifyDataSetChanged()
-        //findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
-        //findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
-        findViewById<ViewPager2>(R.id.viewPager).adapter = null
+        val adapter = ViewPagerAdapter(images)
+        viewPager.adapter = adapter
+        viewPager.currentItem = 1
 
-        viewPagerAdapter = ViewPagerAdapter(images)
-        //val adapter = ViewPagerAdapter(images)
-        findViewById<ViewPager2>(R.id.viewPager).adapter = viewPagerAdapter
-        findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
-        findViewById<ViewPager2>(R.id.viewPager).adapter?.notifyDataSetChanged()
-
-        //set home time
+        // Set home time
         val timeEdit = findViewById<EditText>(R.id.time)
         val formatter = DateTimeFormatter.ofPattern("HH:mm")
         val curTime = LocalDateTime.now().format(formatter)
