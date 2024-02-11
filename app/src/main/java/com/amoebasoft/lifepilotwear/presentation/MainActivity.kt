@@ -5,6 +5,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -30,15 +31,25 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
 
     private lateinit var mSensorManager : SensorManager
     private var mHeartRateSensor : Sensor ?= null
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
     override fun onAccuracyChanged(sensor: Sensor?, bpm: Int) {
         return
     }
     override fun onSensorChanged(event: SensorEvent?) {
         if (event != null) {
             if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
-                setContentView(R.layout.quickdata)
+                //setContentView(R.layout.quickdata)
+                //findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
+
+                val bpmLayout = LayoutInflater.from(this).inflate(R.layout.quickdata, null)
+                //val bpmTextView = bpmLayout.findViewById<TextView>(R.id.bpmtext)
+                //bpmTextView.text = event.values[0].toString()
+
+                setContentView(bpmLayout)
                 findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
 
+                bpmLayout.requestLayout()
+                bpmLayout.invalidate()
 
                 sensorMethod()
             }
@@ -56,8 +67,9 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                 R.drawable.blank2,
                 R.drawable.blank3
             )
-            val adapter = ViewPagerAdapter(images)
-            findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
+            viewPagerAdapter = ViewPagerAdapter(images)
+            //val adapter = ViewPagerAdapter(images)
+            findViewById<ViewPager2>(R.id.viewPager).adapter = viewPagerAdapter
             findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
 
             //set home time
@@ -113,11 +125,17 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             R.drawable.blank2,
             R.drawable.blank3
         )
-        val adapter = ViewPagerAdapter(images)
-        findViewById<ViewPager2>(R.id.viewPager).adapter = null
-        findViewById<ViewPager2>(R.id.viewPager).adapter?.notifyDataSetChanged()
-        findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
+        //val adapter = ViewPagerAdapter(images)
+        //findViewById<ViewPager2>(R.id.viewPager).adapter = null
+        //findViewById<ViewPager2>(R.id.viewPager).adapter?.notifyDataSetChanged()
+        //findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
         //findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
+        findViewById<ViewPager2>(R.id.viewPager).adapter = null
+
+        viewPagerAdapter = ViewPagerAdapter(images)
+        //val adapter = ViewPagerAdapter(images)
+        findViewById<ViewPager2>(R.id.viewPager).adapter = viewPagerAdapter
+        findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
         findViewById<ViewPager2>(R.id.viewPager).adapter?.notifyDataSetChanged()
 
         //set home time
