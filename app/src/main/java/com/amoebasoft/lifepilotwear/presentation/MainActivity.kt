@@ -27,34 +27,22 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     //var user: FirebaseUser? = null
     //var db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
+    //Initialize Sensor Data
     private lateinit var mSensorManager : SensorManager
     private var mHeartRateSensor : Sensor ?= null
     override fun onAccuracyChanged(sensor: Sensor?, bpm: Int) {
         return
     }
+    //Sensor Updates RealTime
     override fun onSensorChanged(event: SensorEvent?) {
         if (event != null) {
             if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
-                //setContentView(R.layout.quickdata)
-                //findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
-
-                /*val bpmLayout = LayoutInflater.from(this).inflate(R.layout.quickdata, null)
-                val bpmTextView = bpmLayout.findViewById<TextView>(R.id.bpmtext)
-                bpmTextView.text = event.values[0].toString()
-
-                setContentView(bpmLayout)*/
-                //findViewById<TextView>(R.id.bpmtext).text = event.values[0].toString()
-
                 ViewPagerAdapter.latestSensorValue = event.values[0]
-
-                //bpmLayout.requestLayout()
-                //bpmLayout.invalidate()
-
                 sensorMethod()
             }
         }
     }
-
+    //OnStartup for App
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -66,11 +54,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                 R.layout.sync,
                 R.layout.buttons
             )
-            /*val images = listOf(
-                R.drawable.blank1,
-                R.drawable.blank2,
-                R.drawable.blank3
-            )*/
             val adapter = ViewPagerAdapter(images)
             findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
             findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
@@ -88,9 +71,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             //mAuth = FirebaseAuth.getInstance()
             //user = mAuth.getCurrentUser() //is null if user is not signed in
             //account = GoogleSignIn.getLastSignedInAccount(this) //is null if user is not signed in
-
-
-
         }
 
         //Sensor Requirements
@@ -102,26 +82,23 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         //menBMR = 66.47 + (6.24 x weight) + (12.7 x height) - (6.755 x age)
         //womenBMR = 655.1 + (4.35 x weight) + (4.7 x height) - (4.7 x age)
     }
-
+    //Sensor start and Stops
     override fun onResume() {
         super.onResume()
         mSensorManager.registerListener(this, mHeartRateSensor, SensorManager.SENSOR_DELAY_NORMAL)
     }
-
     override fun onPause() {
         super.onPause()
         mSensorManager.unregisterListener(this)
     }
-
+    //OnClicks for home buttons
     override fun onClick(view: View?) {
         val id = view?.id
-
         if(id == R.id.button5) {
             setContentView(R.layout.exercises)
         }
-
     }
-
+    //Update Sensor UI with PageViewer from Sensor Updates
     private fun sensorMethod() {
         setContentView(R.layout.home)
 

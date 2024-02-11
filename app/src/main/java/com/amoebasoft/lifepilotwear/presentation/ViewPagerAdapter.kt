@@ -15,14 +15,15 @@ class ViewPagerAdapter (
     var images: MutableList<Int>
 ) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
     inner class ViewPagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    //Adjust screen selections
     private var start =+ 0
+    //Active layout selected on swipe
     private var active = R.layout.quickdata
-    //private var editor = R.layout.home:ImageView;
-
+    //Global variable to for bpm sensor
     companion object {
         var latestSensorValue: Float = 0f
     }
-
+    //Create ViewPager
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
         if(start == 0) {
             val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
@@ -30,16 +31,16 @@ class ViewPagerAdapter (
             return ViewPagerViewHolder(view)
         }
         val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
-        /*if (active == R.layout.sync) {
-            home = (context as MainActivity).findViewById<ImageView>(R.id.maindot2)
-        }*/
         return ViewPagerViewHolder(view)
     }
+    //ViewPager Size
     override fun getItemCount(): Int {
         return images.size
     }
     override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
         val curImage = images[position]
+
+        //Main screens to slide on
         val activeLayoutRes = when (curImage) {
             R.layout.quickdata -> R.layout.quickdata
             R.layout.sync -> R.layout.sync
@@ -47,6 +48,7 @@ class ViewPagerAdapter (
             else -> R.layout.quickdata // Default to quickdata layout if unknown
         }
 
+        //Update ViewPager for new UI data
         val inflater = LayoutInflater.from(holder.itemView.context)
         val inflatedView = inflater.inflate(activeLayoutRes, holder.itemView as ViewGroup?, false)
         (holder.itemView as? ViewGroup)?.removeAllViews()
@@ -57,12 +59,6 @@ class ViewPagerAdapter (
             val bpmTextView = inflatedView.findViewById<TextView>(R.id.bpmtext)
             bpmTextView.text = latestSensorValue.toString()
         }
-    }
-    fun updateData(newImages: List<Int>) {
-        //images = newImages.toMutableList()
-        images.clear()
-        images.addAll(newImages)
-        notifyDataSetChanged()
     }
 }
 
