@@ -41,11 +41,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
 
 
                 sensorMethod()
-
-
-
-
-
             }
         }
     }
