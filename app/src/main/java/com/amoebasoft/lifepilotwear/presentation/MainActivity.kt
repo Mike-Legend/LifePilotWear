@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     //var user: FirebaseUser? = null
     //var db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
+
     //Initialize Sensor Data
     private lateinit var mSensorManager : SensorManager
     private var mHeartRateSensor : Sensor ?= null
