@@ -17,7 +17,7 @@
             android:layout_marginTop="-6dp"
             android:layout_marginEnd="35dp"
             android:gravity="center"
-            android:text="135"
+            android:text="0"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/bpmimage"
