@@ -31,6 +31,8 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     //Initialize Sensor Data
     private lateinit var mSensorManager : SensorManager
     private var mHeartRateSensor : Sensor ?= null
+    private var mStepCountSensor : Sensor ?= null
+    private var mStepDetectSensor : Sensor ?= null
     override fun onAccuracyChanged(sensor: Sensor?, bpm: Int) {
         return
     }
@@ -77,8 +79,8 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         //Sensor Requirements
         mSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)
-        //val mStepCountSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-        //val mStepDetectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        mStepCountSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        mStepDetectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         //calorie tracker inputs / data pulls from firebase
         //menBMR = 66.47 + (6.24 x weight) + (12.7 x height) - (6.755 x age)
         //womenBMR = 655.1 + (4.35 x weight) + (4.7 x height) - (4.7 x age)
