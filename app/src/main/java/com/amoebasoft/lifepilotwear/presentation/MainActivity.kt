@@ -40,9 +40,15 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     override fun onSensorChanged(event: SensorEvent?) {
         if (event != null) {
             if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
-                ViewPagerAdapter.latestSensorValue = event.values[0]
-                sensorMethod()
+                ViewPagerAdapter.heartRateSensorValue = event.values[0]
             }
+            if (event.sensor.type == Sensor.TYPE_STEP_COUNTER) {
+                ViewPagerAdapter.stepSensorValue = event.values[0]
+            }
+            if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
+                ViewPagerAdapter.accelSensorValue = event.values[0]
+            }
+            sensorMethod()
         }
     }
     //OnStartup for App
@@ -89,6 +95,8 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     override fun onResume() {
         super.onResume()
         mSensorManager.registerListener(this, mHeartRateSensor, SensorManager.SENSOR_DELAY_NORMAL)
+        mSensorManager.registerListener(this, mStepCountSensor, SensorManager.SENSOR_DELAY_NORMAL)
+        mSensorManager.registerListener(this, mStepDetectSensor, SensorManager.SENSOR_DELAY_NORMAL)
     }
     override fun onPause() {
         super.onPause()
