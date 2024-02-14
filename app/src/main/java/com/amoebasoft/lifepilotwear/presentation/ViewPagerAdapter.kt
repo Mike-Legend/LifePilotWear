@@ -22,8 +22,8 @@ class ViewPagerAdapter (
     //Global variable to for bpm sensor
     companion object {
         var heartRateSensorValue: Float = 0f
-        //var stepSensorValue: Float = 0f;
-        //var accelSensorValue: Float = 0f;
+        var stepSensorValue: Float = 0f
+        var accelSensorValue: Float = 0f
     }
     //Create ViewPager
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
@@ -60,6 +60,11 @@ class ViewPagerAdapter (
         if (activeLayoutRes == R.layout.quickdata) {
             val bpmTextView = inflatedView.findViewById<TextView>(R.id.bpmtext)
             bpmTextView.text = heartRateSensorValue.toString()
+            /*val kcalTextView = inflatedView.findViewById<TextView>(R.id.kcaltext)
+            kcalTextView.text = heartRateSensorValue.toString()*/
+            val stepTextView = inflatedView.findViewById<TextView>(R.id.setpstext)
+
+            stepTextView.text = heartRateSensorValue.toString()
         }
     }
 }

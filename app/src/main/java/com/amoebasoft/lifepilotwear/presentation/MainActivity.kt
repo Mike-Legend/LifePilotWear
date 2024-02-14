@@ -39,8 +39,8 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     //Initialize Sensor Data
     private lateinit var mSensorManager : SensorManager
     private var mHeartRateSensor : Sensor ?= null
-    //private var mStepCountSensor : Sensor ?= null
-    //private var mStepDetectSensor : Sensor ?= null
+    private var mStepCountSensor : Sensor ?= null
+    private var mStepDetectSensor : Sensor ?= null
     private val PERMISSION_BODY_SENSORS = Manifest.permission.BODY_SENSORS
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -62,12 +62,12 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                 ViewPagerAdapter.heartRateSensorValue = event.values[0]
                 sensorMethod()
             }
-            /*if (event.sensor.type == Sensor.TYPE_STEP_COUNTER) {
+            if (event.sensor.type == Sensor.TYPE_STEP_COUNTER) {
                 ViewPagerAdapter.stepSensorValue = event.values[0]
             }
             if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
                 ViewPagerAdapter.accelSensorValue = event.values[0]
-            }*/
+            }
         }
     }
     fun requestPermission() {
@@ -129,8 +129,8 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         //Sensor Requirements
         mSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)
-        //mStepCountSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-        //mStepDetectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        mStepCountSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        mStepDetectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         //calorie tracker inputs / data pulls from firebase
         //menBMR = 66.47 + (6.24 x weight) + (12.7 x height) - (6.755 x age)
         //womenBMR = 655.1 + (4.35 x weight) + (4.7 x height) - (4.7 x age)
@@ -139,8 +139,8 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     override fun onResume() {
         super.onResume()
         mSensorManager.registerListener(this, mHeartRateSensor, SensorManager.SENSOR_DELAY_NORMAL)
-        //mSensorManager.registerListener(this, mStepCountSensor, SensorManager.SENSOR_DELAY_NORMAL)
-        //mSensorManager.registerListener(this, mStepDetectSensor, SensorManager.SENSOR_DELAY_NORMAL)
+        mSensorManager.registerListener(this, mStepCountSensor, SensorManager.SENSOR_DELAY_NORMAL)
+        mSensorManager.registerListener(this, mStepDetectSensor, SensorManager.SENSOR_DELAY_NORMAL)
     }
     override fun onPause() {
         super.onPause()
