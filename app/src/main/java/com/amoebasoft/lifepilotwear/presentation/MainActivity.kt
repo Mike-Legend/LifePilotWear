@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     ) { isGranted: Boolean ->
         if (isGranted) {
             Log.i("Permission: ", "Granted")
+            findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
         } else {
             Log.i("Permission: ", "Denied")
         }
@@ -73,6 +74,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         if (ContextCompat.checkSelfPermission(this, PERMISSION_BODY_SENSORS)
             == PackageManager.PERMISSION_GRANTED) {
             // Permission granted
+            findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
         } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISSION_BODY_SENSORS)) {
             val builder = AlertDialog.Builder(this)
             builder.setMessage("This app requires BODY_SENSORS permission for particular features to work as expected.")
@@ -152,9 +154,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             setContentView(R.layout.exercises)
         }
         else if(id == R.id.buttonRuntimePermission) {
-            findViewById<Button>(R.id.buttonRuntimePermission).setOnClickListener {
-                requestPermission()
-            }
+            requestPermission()
             findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
         }
     }
