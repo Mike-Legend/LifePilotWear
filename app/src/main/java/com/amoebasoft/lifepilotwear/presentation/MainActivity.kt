@@ -37,11 +37,15 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
 
 
     //Initialize Sensor Data
+    private val ALPHA = 0.8f
+    private val STEP_THRESHOLD = 8
+    private val STEP_DELAY_NS = 250000000
     private lateinit var mSensorManager : SensorManager
     private var mHeartRateSensor : Sensor ?= null
-    private var mStepCountSensor : Sensor ?= null
     private var mStepDetectSensor : Sensor ?= null
     private val PERMISSION_BODY_SENSORS = Manifest.permission.BODY_SENSORS
+    private var lastStepTimeNs: Long = 0
+    private var stepCount: Int = 0
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -62,11 +66,32 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                 ViewPagerAdapter.heartRateSensorValue = event.values[0]
                 sensorMethod()
             }
-            if (event.sensor.type == Sensor.TYPE_STEP_COUNTER) {
-                ViewPagerAdapter.stepSensorValue = event.values[0]
-            }
             if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-                ViewPagerAdapter.accelSensorValue = event.values[0]
+                val currentTimeNs = System.nanoTime()
+                if (currentTimeNs - lastStepTimeNs >= STEP_DELAY_NS) {
+                    // Low-pass filter to smooth out accelerometer data
+                    val gravity = floatArrayOf(0f, 0f, 0f)
+                    val linearAcceleration = floatArrayOf(0f, 0f, 0f)
+                    gravity[0] = ALPHA * gravity[0] + (1 - ALPHA) * event.values[0]
+                    gravity[1] = ALPHA * gravity[1] + (1 - ALPHA) * event.values[1]
+                    gravity[2] = ALPHA * gravity[2] + (1 - ALPHA) * event.values[2]
+                    linearAcceleration[0] = event.values[0] - gravity[0]
+                    linearAcceleration[1] = event.values[1] - gravity[1]
+                    linearAcceleration[2] = event.values[2] - gravity[2]
+                    // Magnitude of the acceleration vector
+                    val accelerationMagnitude = Math.sqrt(
+                        (linearAcceleration[0] * linearAcceleration[0] +
+                                linearAcceleration[1] * linearAcceleration[1] +
+                                linearAcceleration[2] * linearAcceleration[2]).toDouble()
+                    ).toFloat()
+                    // Check for step and update
+                    if (accelerationMagnitude > STEP_THRESHOLD) {
+                        stepCount++
+                        lastStepTimeNs = currentTimeNs
+                        ViewPagerAdapter.accelSensorValue = stepCount
+                        sensorMethod()
+                    }
+                }
             }
         }
     }
@@ -129,7 +154,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         //Sensor Requirements
         mSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)
-        mStepCountSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         mStepDetectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         //calorie tracker inputs / data pulls from firebase
         //menBMR = 66.47 + (6.24 x weight) + (12.7 x height) - (6.755 x age)
@@ -139,7 +163,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     override fun onResume() {
         super.onResume()
         mSensorManager.registerListener(this, mHeartRateSensor, SensorManager.SENSOR_DELAY_NORMAL)
-        mSensorManager.registerListener(this, mStepCountSensor, SensorManager.SENSOR_DELAY_NORMAL)
         mSensorManager.registerListener(this, mStepDetectSensor, SensorManager.SENSOR_DELAY_NORMAL)
     }
     override fun onPause() {
