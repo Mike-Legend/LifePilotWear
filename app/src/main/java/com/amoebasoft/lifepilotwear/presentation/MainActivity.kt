@@ -1,16 +1,21 @@
 package com.amoebasoft.lifepilotwear.presentation
 
+import android.Manifest
+import android.app.AlertDialog
+import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.amoebasoft.lifepilotwear.R
 import java.time.LocalDateTime
@@ -33,6 +38,16 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private var mHeartRateSensor : Sensor ?= null
     //private var mStepCountSensor : Sensor ?= null
     //private var mStepDetectSensor : Sensor ?= null
+    private val PERMISSION_BODY_SENSORS = Manifest.permission.BODY_SENSORS
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            Log.i("Permission: ", "Granted")
+        } else {
+            Log.i("Permission: ", "Denied")
+        }
+    }
     override fun onAccuracyChanged(sensor: Sensor?, bpm: Int) {
         return
     }
@@ -51,6 +66,29 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             }*/
         }
     }
+    fun requestPermission() {
+        if (ContextCompat.checkSelfPermission(this, PERMISSION_BODY_SENSORS)
+            == PackageManager.PERMISSION_GRANTED) {
+            // Permission granted
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISSION_BODY_SENSORS)) {
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("This app requires BODY_SENSORS permission for particular features to work as expected.")
+                .setTitle("Permission Required")
+                .setCancelable(false)
+                .setPositiveButton("Ok") { dialog, which ->
+                    ActivityCompat.requestPermissions(this, arrayOf(PERMISSION_BODY_SENSORS), 100)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, which ->
+                    dialog.dismiss()
+                }
+            builder.show()
+        } else {
+            requestPermissionLauncher.launch(PERMISSION_BODY_SENSORS)
+        }
+    }
+
+
     //OnStartup for App
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
