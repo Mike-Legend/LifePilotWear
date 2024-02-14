@@ -99,10 +99,9 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         setContent {
             setContentView(R.layout.home)
 
+            sensorMethod()
 
-
-
-            //slider views
+            /*//slider views
             val images = mutableListOf(
                 R.layout.quickdata,
                 R.layout.sync,
@@ -116,7 +115,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             val timeEdit = findViewById<EditText>(R.id.time)
             val formatter = DateTimeFormatter.ofPattern("HH:mm")
             val curTime = LocalDateTime.now().format(formatter)
-            timeEdit.setText(curTime)
+            timeEdit.setText(curTime)*/
 
             //Google Sign In variables
             //gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -161,6 +160,11 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     //Update Sensor UI with PageViewer from Sensor Updates
     private fun sensorMethod() {
         setContentView(R.layout.home)
+
+        if (ContextCompat.checkSelfPermission(this, PERMISSION_BODY_SENSORS)
+            == PackageManager.PERMISSION_GRANTED) {
+            findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
+        }
 
         // Get ViewPager reference
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
