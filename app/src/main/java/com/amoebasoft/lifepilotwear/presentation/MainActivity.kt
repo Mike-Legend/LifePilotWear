@@ -48,6 +48,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private val PERMISSION_BODY_SENSORS = Manifest.permission.BODY_SENSORS
     private var lastStepTimeNs: Long = 0
     private var stepCount: Int = 0
+    private var start = 0
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -95,6 +96,24 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                     }
                 }
             }
+            // Update UI elements directly here
+            // Get ViewPager reference
+            val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+            // Update UI elements based on sensor data
+            val position = viewPager.currentItem
+            if (position == 0) {
+                findViewById<ImageView>(R.id.maindot1).visibility = View.VISIBLE
+                findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
+                findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
+            } else if (position == 1) {
+                findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
+                findViewById<ImageView>(R.id.maindot2).visibility = View.VISIBLE
+                findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
+            } else if (position == 2) {
+                findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
+                findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
+                findViewById<ImageView>(R.id.maindot3).visibility = View.VISIBLE
+            }
         }
     }
     fun requestPermission() {
@@ -126,24 +145,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         setContent {
             setContentView(R.layout.home)
             sensorMethod()
-            //setupViewPagerListener()
-
-            val viewPager = findViewById<ViewPager2>(R.id.viewPager)
-            val images = mutableListOf(
-                R.layout.quickdata,
-                R.layout.sync,
-                R.layout.buttons
-            )
-            val adapter = ViewPagerAdapter(images)
-            viewPager.adapter = adapter
-            viewPager.currentItem = 1
-            // Set up ViewPager listener
-            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    sensorMethod()
-                }
-            })
 
             //Google Sign In variables
             //gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -209,7 +210,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                     findViewById<ImageView>(R.id.maindot1).visibility = View.VISIBLE
                     findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
                     findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
-                    //adapter.setActiveLayout(position)
                 } else if (position == 1) {
                     findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
                     findViewById<ImageView>(R.id.maindot2).visibility = View.VISIBLE
@@ -223,8 +223,11 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         })
         adapter.notifyDataSetChanged()
         viewPager.adapter = adapter
-        viewPager.currentItem = 1
 
+        if(start == 0) {
+            start += 1
+            viewPager.currentItem = 1
+        }
 
         // Set home time
         val timeEdit = findViewById<EditText>(R.id.time)
