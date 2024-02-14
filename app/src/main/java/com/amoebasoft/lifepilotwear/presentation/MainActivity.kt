@@ -7,9 +7,11 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.amoebasoft.lifepilotwear.R
+import com.google.android.play.core.integrity.v
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -88,12 +91,14 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         }
     }
 
-
     //OnStartup for App
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             setContentView(R.layout.home)
+
+
+
 
             //slider views
             val images = mutableListOf(
@@ -145,6 +150,12 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         val id = view?.id
         if(id == R.id.button5) {
             setContentView(R.layout.exercises)
+        }
+        else if(id == R.id.buttonRuntimePermission) {
+            findViewById<Button>(R.id.buttonRuntimePermission).setOnClickListener {
+                requestPermission()
+            }
+            findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
         }
     }
     //Update Sensor UI with PageViewer from Sensor Updates
