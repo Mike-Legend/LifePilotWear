@@ -7,14 +7,12 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,10 +20,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.amoebasoft.lifepilotwear.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.play.core.integrity.v
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -133,13 +131,13 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             setContentView(R.layout.home)
             sensorMethod()
 
-            //Google Sign In variables
-            //gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            //    .requestIdToken(getString(R.string.server_client_id)).requestEmail().build()
-            //gsc = GoogleSignIn.getClient(this, gso)
-            //mAuth = FirebaseAuth.getInstance()
-            //user = mAuth.getCurrentUser() //is null if user is not signed in
-            //account = GoogleSignIn.getLastSignedInAccount(this) //is null if user is not signed in
+            //Google Sign In variables using dummy parameters for now
+            gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id)).requestEmail().build()
+            gsc = GoogleSignIn.getClient(this, gso!!)
+            mAuth = FirebaseAuth.getInstance()
+            user = mAuth!!.getCurrentUser() //is null if user is not signed in
+            account = GoogleSignIn.getLastSignedInAccount(this) //is null if user is not signed in
         }
 
         //Sensor Requirements
@@ -170,6 +168,10 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             requestPermission()
             findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
         }
+        else if(id == R.id.buttonSync) {
+
+        }
+
     }
     //Update Sensor UI with PageViewer from Sensor Updates
     private fun sensorMethod() {
