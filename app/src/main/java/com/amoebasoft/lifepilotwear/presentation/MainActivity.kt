@@ -22,7 +22,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.amoebasoft.lifepilotwear.R
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.play.core.integrity.v
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -30,13 +36,12 @@ import java.time.format.DateTimeFormatter
 class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListener {
 
     //Google Sign in variables
-    //var gso: GoogleSignInOptions? = null
-    //var gsc: GoogleSignInClient? = null
-    //var account: GoogleSignInAccount? = null
-    //private var mAuth: FirebaseAuth? = null
-    //var user: FirebaseUser? = null
-    //var db: FirebaseFirestore = FirebaseFirestore.getInstance()
-
+    var gso: GoogleSignInOptions? = null
+    var gsc: GoogleSignInClient? = null
+    var account: GoogleSignInAccount? = null
+    private var mAuth: FirebaseAuth? = null
+    var user: FirebaseUser? = null
+    var db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     //Initialize Sensor Data
     private val ALPHA = 0.8f
@@ -95,24 +100,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                         sensorMethod()
                     }
                 }
-            }
-            // Update UI elements directly here
-            // Get ViewPager reference
-            val viewPager = findViewById<ViewPager2>(R.id.viewPager)
-            // Update UI elements based on sensor data
-            val position = viewPager.currentItem
-            if (position == 0) {
-                findViewById<ImageView>(R.id.maindot1).visibility = View.VISIBLE
-                findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
-                findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
-            } else if (position == 1) {
-                findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
-                findViewById<ImageView>(R.id.maindot2).visibility = View.VISIBLE
-                findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
-            } else if (position == 2) {
-                findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
-                findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
-                findViewById<ImageView>(R.id.maindot3).visibility = View.VISIBLE
             }
         }
     }
