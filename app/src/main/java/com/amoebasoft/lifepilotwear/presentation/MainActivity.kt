@@ -126,6 +126,24 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         setContent {
             setContentView(R.layout.home)
             sensorMethod()
+            //setupViewPagerListener()
+
+            val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+            val images = mutableListOf(
+                R.layout.quickdata,
+                R.layout.sync,
+                R.layout.buttons
+            )
+            val adapter = ViewPagerAdapter(images)
+            viewPager.adapter = adapter
+            viewPager.currentItem = 1
+            // Set up ViewPager listener
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    sensorMethod()
+                }
+            })
 
             //Google Sign In variables
             //gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -182,27 +200,45 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             R.layout.buttons
         )
         val adapter = ViewPagerAdapter(images)
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                //navigation update
+                if(position == 0) {
+                    findViewById<ImageView>(R.id.maindot1).visibility = View.VISIBLE
+                    findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
+                    findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
+                    //adapter.setActiveLayout(position)
+                } else if (position == 1) {
+                    findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
+                    findViewById<ImageView>(R.id.maindot2).visibility = View.VISIBLE
+                    findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
+                } else if (position == 2) {
+                    findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
+                    findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
+                    findViewById<ImageView>(R.id.maindot3).visibility = View.VISIBLE
+                }
+            }
+        })
+        adapter.notifyDataSetChanged()
         viewPager.adapter = adapter
         viewPager.currentItem = 1
 
-        //navigation update
-        if(adapter.getActiveLayout() == R.layout.quickdata) {
-            findViewById<ImageView>(R.id.maindot1).visibility = View.VISIBLE
-            findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
-            findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
-        } else if (adapter.getActiveLayout() == R.layout.sync) {
-            findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
-            findViewById<ImageView>(R.id.maindot2).visibility = View.VISIBLE
-            findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
-        } else if (adapter.getActiveLayout() == R.layout.buttons) {
-            findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
-            findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
-            findViewById<ImageView>(R.id.maindot3).visibility = View.VISIBLE
-        }
+
         // Set home time
         val timeEdit = findViewById<EditText>(R.id.time)
         val formatter = DateTimeFormatter.ofPattern("HH:mm")
         val curTime = LocalDateTime.now().format(formatter)
         timeEdit.setText(curTime)
+    }
+    private fun setupViewPagerListener() {
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                sensorMethod()
+            }
+        })
     }
 }

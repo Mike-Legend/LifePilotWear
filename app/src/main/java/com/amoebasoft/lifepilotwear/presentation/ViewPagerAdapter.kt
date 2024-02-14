@@ -15,17 +15,8 @@ class ViewPagerAdapter (
     var images: MutableList<Int>
 ) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
     inner class ViewPagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-    //Adjust screen selections
-    private var start =+ 0
     //Active layout selected on swipe
     private var active = R.layout.quickdata
-    fun getActiveLayout(): Int {
-        return active
-    }
-    fun setActiveLayout(activeLayoutRes: Int) {
-        active = activeLayoutRes
-        //notifyDataSetChanged()
-    }
     //Global variable to for bpm sensor
     companion object {
         var heartRateSensorValue: Float = 0f
@@ -35,11 +26,6 @@ class ViewPagerAdapter (
     }
     //Create ViewPager
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
-        if(start == 0) {
-            val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
-            start += 1
-            return ViewPagerViewHolder(view)
-        }
         val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
         return ViewPagerViewHolder(view)
     }
@@ -57,7 +43,6 @@ class ViewPagerAdapter (
             R.layout.buttons -> R.layout.buttons
             else -> R.layout.sync // Default to sync layout if unknown
         }
-        setActiveLayout(activeLayoutRes)
 
         //Update ViewPager for new UI data
         val inflater = LayoutInflater.from(holder.itemView.context)
