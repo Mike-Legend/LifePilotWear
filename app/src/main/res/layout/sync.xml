@@ -43,215 +43,225 @@
                     android:id="@+id/workout_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="-1dp"
+                    android:layout_marginBottom="2dp"
                     android:text="Workouts"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <LinearLayout
-                    android:id="@+id/workoutholder"
+                <ScrollView
+                    android:id="@+id/WorkoutListScroll"
                     android:layout_width="match_parent"
                     android:layout_height="115dp"
-                    android:layout_marginTop="18dp"
-                    android:orientation="vertical"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginBottom="6dp"
                     app:layout_constraintBottom_toTopOf="@+id/workout_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/workout1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    <LinearLayout
+                        android:id="@+id/workoutholder"
+                        android:layout_width="160dp"
+                        android:layout_height="115dp"
+                        android:layout_marginTop="18dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:translationY="-18dp"
+                        app:layout_constraintBottom_toTopOf="@+id/workout_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-
-                        <Button
-                            android:id="@+id/workoutbutton1"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/workout1"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_horizontal|top"
-                            android:text="Dumbbell Raises"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:layout_height="115dp">
 
-                        <ImageView
-                            android:id="@+id/workoutimage1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginEnd="80dp"
-                            android:elevation="2dp"
-                            android:scaleX=".8"
-                            android:scaleY=".8"
-                            app:layout_constraintBottom_toBottomOf="@+id/workout1"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/s6" />
+                            <Button
+                                android:id="@+id/workoutbutton1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_horizontal|top"
+                                android:text="Dumbbell Raises"
+                                android:elevation="-2dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/settext1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="45dp"
-                            android:layout_marginTop="35dp"
-                            android:elevation="2dp"
-                            android:text="Sets: 3"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/workout1" />
+                            <ImageView
+                                android:id="@+id/workoutimage1"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginEnd="80dp"
+                                android:elevation="2dp"
+                                android:foreground="@drawable/s6"
+                                app:layout_constraintBottom_toBottomOf="@+id/workout1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/repstext1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="56dp"
-                            android:layout_marginTop="5dp"
-                            android:elevation="2dp"
-                            android:text="Reps: 10"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/settext1" />
+                            <TextView
+                                android:id="@+id/settext1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="45dp"
+                                android:layout_marginTop="35dp"
+                                android:elevation="2dp"
+                                android:text="Sets: 3"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/workout1" />
 
-                        <ImageButton
-                            android:id="@+id/checkbutton1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="67dp"
-                            android:background="#00FFFFFF"
-                            android:clickable="true"
-                            android:cropToPadding="false"
-                            android:elevation="2dp"
-                            android:scaleType="fitEnd"
-                            android:scaleX=".2"
-                            android:scaleY=".2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/workout1"
-                            app:layout_constraintStart_toStartOf="@+id/workout1"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/checkmark" />
+                            <TextView
+                                android:id="@+id/repstext1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="53dp"
+                                android:layout_marginTop="5dp"
+                                android:elevation="2dp"
+                                android:text="Reps: 10"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/settext1" />
 
-                        <ImageButton
-                            android:id="@+id/xbutton1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="85dp"
-                            android:layout_marginTop="67dp"
-                            android:background="#00FFFFFF"
-                            android:clickable="true"
-                            android:cropToPadding="false"
-                            android:elevation="2dp"
-                            android:scaleType="fitEnd"
-                            android:scaleX=".16"
-                            android:scaleY=".16"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/workout1"
-                            app:layout_constraintStart_toStartOf="@+id/workout1"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/x" />
+                            <Button
+                                android:id="@+id/checkbutton1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="67dp"
+                                android:background="#00FFFFFF"
+                                android:clickable="true"
+                                android:cropToPadding="false"
+                                android:elevation="2dp"
+                                android:foreground="@drawable/checkmark"
+                                android:onClick="onClick"
+                                android:scaleX=".3"
+                                android:scaleY=".5"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/workout1"
+                                app:layout_constraintStart_toStartOf="@+id/workout1"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            <Button
+                                android:id="@+id/xbutton1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="95dp"
+                                android:layout_marginTop="67dp"
+                                android:background="#00FFFFFF"
+                                android:clickable="true"
+                                android:cropToPadding="false"
+                                android:elevation="2dp"
+                                android:foreground="@drawable/x"
+                                android:onClick="onClick"
+                                android:scaleX=".25"
+                                android:scaleY=".4"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/workout1"
+                                app:layout_constraintStart_toStartOf="@+id/workout1"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/workout2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                        <Button
-                            android:id="@+id/workoutbutton2"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/workout2"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_horizontal|top"
-                            android:text="Dumbbell Raises"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:layout_height="115dp">
 
-                        <ImageView
-                            android:id="@+id/workoutimage2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginEnd="80dp"
-                            android:elevation="2dp"
-                            android:scaleX=".8"
-                            android:scaleY=".8"
-                            app:layout_constraintBottom_toBottomOf="@+id/workout2"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/s6" />
+                            <Button
+                                android:id="@+id/workoutbutton2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_horizontal|top"
+                                android:text="Bench Press"
+                                android:elevation="-2dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/settext2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="45dp"
-                            android:layout_marginTop="35dp"
-                            android:elevation="2dp"
-                            android:text="Sets: 3"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/workout2" />
+                            <ImageView
+                                android:id="@+id/workoutimage2"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginEnd="80dp"
+                                android:elevation="2dp"
+                                android:foreground="@drawable/s14"
+                                app:layout_constraintBottom_toBottomOf="@+id/workout2"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/repstext2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="56dp"
-                            android:layout_marginTop="5dp"
-                            android:elevation="2dp"
-                            android:text="Reps: 10"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/settext2" />
+                            <TextView
+                                android:id="@+id/settext2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="45dp"
+                                android:layout_marginTop="35dp"
+                                android:elevation="2dp"
+                                android:text="Sets: 3"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/workout2" />
 
-                        <ImageButton
-                            android:id="@+id/checkbutton2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="67dp"
-                            android:background="#00FFFFFF"
-                            android:clickable="true"
-                            android:cropToPadding="false"
-                            android:elevation="2dp"
-                            android:scaleType="fitEnd"
-                            android:scaleX=".2"
-                            android:scaleY=".2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/workout2"
-                            app:layout_constraintStart_toStartOf="@+id/workout2"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/checkmark" />
+                            <TextView
+                                android:id="@+id/repstext2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="53dp"
+                                android:layout_marginTop="5dp"
+                                android:elevation="2dp"
+                                android:text="Reps: 10"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/settext2" />
 
-                        <ImageButton
-                            android:id="@+id/xbutton2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="85dp"
-                            android:layout_marginTop="67dp"
-                            android:background="#00FFFFFF"
-                            android:clickable="true"
-                            android:cropToPadding="false"
-                            android:elevation="2dp"
-                            android:scaleType="fitEnd"
-                            android:scaleX=".16"
-                            android:scaleY=".16"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/workout2"
-                            app:layout_constraintStart_toStartOf="@+id/workout2"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/x" />
+                            <Button
+                                android:id="@+id/checkbutton2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="67dp"
+                                android:background="#00FFFFFF"
+                                android:clickable="true"
+                                android:cropToPadding="false"
+                                android:elevation="2dp"
+                                android:foreground="@drawable/checkmark"
+                                android:onClick="onClick"
+                                android:scaleX=".3"
+                                android:scaleY=".5"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/workout2"
+                                app:layout_constraintStart_toStartOf="@+id/workout2"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
+                            <Button
+                                android:id="@+id/xbutton2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="95dp"
+                                android:layout_marginTop="67dp"
+                                android:background="#00FFFFFF"
+                                android:clickable="true"
+                                android:cropToPadding="false"
+                                android:elevation="2dp"
+                                android:foreground="@drawable/x"
+                                android:onClick="onClick"
+                                android:scaleX=".25"
+                                android:scaleY=".4"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/workout2"
+                                app:layout_constraintStart_toStartOf="@+id/workout2"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </ScrollView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
