@@ -23,6 +23,8 @@ class ViewPagerAdapter (
     companion object {
         var heartRateSensorValue: Float = 0f
         var accelSensorValue: Int = 0
+        var calBurned: Float = 0f
+        var extraCal: Float = 0f
     }
     //Create ViewPager
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
@@ -59,8 +61,10 @@ class ViewPagerAdapter (
         if (activeLayoutRes == R.layout.quickdata) {
             val bpmTextView = inflatedView.findViewById<TextView>(R.id.bpmtext)
             bpmTextView.text = heartRateSensorValue.toString()
-            /*val kcalTextView = inflatedView.findViewById<TextView>(R.id.kcaltext)
-            kcalTextView.text = heartRateSensorValue.toString()*/
+            val kcalTextView = inflatedView.findViewById<TextView>(R.id.kcaltext)
+            calBurned =  3.0f * 72.57f * (accelSensorValue / 1300.0f)
+            extraCal = if (heartRateSensorValue > 99) {5.0f} else {0f}
+            kcalTextView.text = (calBurned + extraCal).toString()
             val stepTextView = inflatedView.findViewById<TextView>(R.id.setpstext)
             stepTextView.text = accelSensorValue.toString()
         }
