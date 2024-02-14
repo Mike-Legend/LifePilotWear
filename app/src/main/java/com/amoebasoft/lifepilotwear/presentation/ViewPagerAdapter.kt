@@ -19,6 +19,13 @@ class ViewPagerAdapter (
     private var start =+ 0
     //Active layout selected on swipe
     private var active = R.layout.quickdata
+    fun getActiveLayout(): Int {
+        return active
+    }
+    fun setActiveLayout(activeLayoutRes: Int) {
+        active = activeLayoutRes
+        //notifyDataSetChanged()
+    }
     //Global variable to for bpm sensor
     companion object {
         var heartRateSensorValue: Float = 0f
@@ -48,8 +55,9 @@ class ViewPagerAdapter (
             R.layout.quickdata -> R.layout.quickdata
             R.layout.sync -> R.layout.sync
             R.layout.buttons -> R.layout.buttons
-            else -> R.layout.quickdata // Default to quickdata layout if unknown
+            else -> R.layout.sync // Default to sync layout if unknown
         }
+        setActiveLayout(activeLayoutRes)
 
         //Update ViewPager for new UI data
         val inflater = LayoutInflater.from(holder.itemView.context)
@@ -57,8 +65,9 @@ class ViewPagerAdapter (
         (holder.itemView as? ViewGroup)?.removeAllViews()
         (holder.itemView as? ViewGroup)?.addView(inflatedView)
 
-        // Update UI based on sensor data
+        // Update UI info
         if (activeLayoutRes == R.layout.quickdata) {
+            //sensor adjustments
             val bpmTextView = inflatedView.findViewById<TextView>(R.id.bpmtext)
             bpmTextView.text = heartRateSensorValue.toString()
             val kcalTextView = inflatedView.findViewById<TextView>(R.id.kcaltext)

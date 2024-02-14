@@ -13,6 +13,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -123,24 +125,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         super.onCreate(savedInstanceState)
         setContent {
             setContentView(R.layout.home)
-
             sensorMethod()
-
-            /*//slider views
-            val images = mutableListOf(
-                R.layout.quickdata,
-                R.layout.sync,
-                R.layout.buttons
-            )
-            val adapter = ViewPagerAdapter(images)
-            findViewById<ViewPager2>(R.id.viewPager).adapter = adapter
-            findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
-
-            //set home time
-            val timeEdit = findViewById<EditText>(R.id.time)
-            val formatter = DateTimeFormatter.ofPattern("HH:mm")
-            val curTime = LocalDateTime.now().format(formatter)
-            timeEdit.setText(curTime)*/
 
             //Google Sign In variables
             //gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -183,15 +168,13 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     //Update Sensor UI with PageViewer from Sensor Updates
     private fun sensorMethod() {
         setContentView(R.layout.home)
-
+        //permission recheck on load
         if (ContextCompat.checkSelfPermission(this, PERMISSION_BODY_SENSORS)
             == PackageManager.PERMISSION_GRANTED) {
             findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
         }
-
         // Get ViewPager reference
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
-
         // Set adapter for ViewPager
         val images = mutableListOf(
             R.layout.quickdata,
@@ -202,6 +185,20 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         viewPager.adapter = adapter
         viewPager.currentItem = 1
 
+        //navigation update
+        if(adapter.getActiveLayout() == R.layout.quickdata) {
+            findViewById<ImageView>(R.id.maindot1).visibility = View.VISIBLE
+            findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
+            findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
+        } else if (adapter.getActiveLayout() == R.layout.sync) {
+            findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
+            findViewById<ImageView>(R.id.maindot2).visibility = View.VISIBLE
+            findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
+        } else if (adapter.getActiveLayout() == R.layout.buttons) {
+            findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
+            findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
+            findViewById<ImageView>(R.id.maindot3).visibility = View.VISIBLE
+        }
         // Set home time
         val timeEdit = findViewById<EditText>(R.id.time)
         val formatter = DateTimeFormatter.ofPattern("HH:mm")
