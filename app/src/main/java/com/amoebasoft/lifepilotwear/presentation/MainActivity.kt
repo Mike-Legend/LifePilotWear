@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -163,13 +164,19 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         val id = view?.id
         if(id == R.id.buttonSync) {
             findViewById<Button>(R.id.buttonSync).visibility = View.GONE
-            findViewById<Button>(R.id.workoutstart).visibility = View.VISIBLE
+            findViewById<FrameLayout>(R.id.workoutstart).visibility = View.VISIBLE
         }
         else if(id == R.id.checkbutton1) {
             findViewById<Button>(R.id.workoutbutton1).setBackgroundColor(getResources().getColor(R.color.passGreen))
         }
         else if(id == R.id.xbutton1) {
             findViewById<Button>(R.id.workoutbutton1).setBackgroundColor(getResources().getColor(R.color.deleteRed))
+        }
+        else if(id == R.id.checkbutton2) {
+            findViewById<Button>(R.id.workoutbutton2).setBackgroundColor(getResources().getColor(R.color.passGreen))
+        }
+        else if(id == R.id.xbutton2) {
+            findViewById<Button>(R.id.workoutbutton2).setBackgroundColor(getResources().getColor(R.color.deleteRed))
         }
         else if(id == R.id.buttonRuntimePermission) {
             requestPermission()

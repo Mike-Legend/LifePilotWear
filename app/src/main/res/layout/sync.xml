@@ -111,6 +111,7 @@
                                 android:layout_marginTop="35dp"
                                 android:elevation="2dp"
                                 android:text="Sets: 3"
+                                android:textColor="@color/white"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/workout1" />
@@ -123,6 +124,7 @@
                                 android:layout_marginTop="5dp"
                                 android:elevation="2dp"
                                 android:text="Reps: 10"
+                                android:textColor="@color/white"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/settext1" />
@@ -205,6 +207,7 @@
                                 android:layout_marginTop="35dp"
                                 android:elevation="2dp"
                                 android:text="Sets: 3"
+                                android:textColor="@color/white"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/workout2" />
@@ -217,21 +220,22 @@
                                 android:layout_marginTop="5dp"
                                 android:elevation="2dp"
                                 android:text="Reps: 10"
+                                android:textColor="@color/white"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/settext2" />
 
                             <Button
                                 android:id="@+id/checkbutton2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="80dp"
+                                android:layout_height="47dp"
                                 android:layout_marginStart="25dp"
                                 android:layout_marginTop="67dp"
                                 android:background="#00FFFFFF"
                                 android:clickable="true"
                                 android:cropToPadding="false"
                                 android:elevation="2dp"
-                                android:foreground="@drawable/checkmark"
+                                android:foreground="@drawable/multilayercheck"
                                 android:onClick="onClick"
                                 android:scaleX=".3"
                                 android:scaleY=".5"
@@ -242,15 +246,15 @@
 
                             <Button
                                 android:id="@+id/xbutton2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="100dp"
+                                android:layout_height="60dp"
                                 android:layout_marginStart="95dp"
                                 android:layout_marginTop="67dp"
                                 android:background="#00FFFFFF"
                                 android:clickable="true"
                                 android:cropToPadding="false"
                                 android:elevation="2dp"
-                                android:foreground="@drawable/x"
+                                android:foreground="@drawable/multilayerx"
                                 android:onClick="onClick"
                                 android:scaleX=".25"
                                 android:scaleY=".4"
