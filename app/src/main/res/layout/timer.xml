@@ -27,18 +27,19 @@
             android:id="@+id/TimerPlay"
             android:layout_width="52dp"
             android:layout_height="45dp"
-            android:layout_marginStart="78dp"
+            android:layout_marginStart="72dp"
             android:layout_marginEnd="76dp"
             android:layout_marginBottom="2dp"
+            android:background="#00FFFFFF"
             android:elevation="5dp"
+            android:foreground="@drawable/play"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/play" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/TimerPause"
@@ -49,13 +50,14 @@
             android:layout_marginBottom="2dp"
             android:elevation="5dp"
             android:visibility="gone"
+            android:foreground="@drawable/pause"
+            android:background="#00FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/pause" />
+            app:layout_constraintVertical_bias="1.0"/>
 
         <Button
             android:id="@+id/iTimerResetbutton"

@@ -7,6 +7,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -187,7 +188,18 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         }
         else if(id == R.id.buttonStopwatch) {
             setContentView(R.layout.timer)
-
+        }
+        else if(id == R.id.Timerbuttonplay) {
+            //setContentView(R.layout.timer)
+            if(findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE) {
+                findViewById<ImageView>(R.id.TimerPlay).visibility == View.GONE
+                findViewById<ImageView>(R.id.TimerPause).visibility == View.VISIBLE
+                //start time
+            } else {
+                findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE
+                findViewById<ImageView>(R.id.TimerPause).visibility == View.GONE
+                //pause time
+            }
         }
         else if(id == R.id.buttonUser) {
 
