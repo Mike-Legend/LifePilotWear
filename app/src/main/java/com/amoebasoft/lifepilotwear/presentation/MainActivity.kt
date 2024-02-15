@@ -161,17 +161,20 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     //OnClicks for home buttons
     override fun onClick(view: View?) {
         val id = view?.id
-        if(id == R.id.button5) {
-            setContentView(R.layout.exercises)
+        if(id == R.id.buttonSync) {
+            findViewById<Button>(R.id.buttonSync).visibility = View.GONE
+            findViewById<Button>(R.id.workoutstart).visibility = View.VISIBLE
+        }
+        else if(id == R.id.checkbutton1) {
+            findViewById<Button>(R.id.workoutbutton1).setBackgroundColor(getResources().getColor(R.color.passGreen))
+        }
+        else if(id == R.id.xbutton1) {
+            findViewById<Button>(R.id.workoutbutton1).setBackgroundColor(getResources().getColor(R.color.deleteRed))
         }
         else if(id == R.id.buttonRuntimePermission) {
             requestPermission()
             findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
         }
-        else if(id == R.id.buttonSync) {
-
-        }
-
     }
     //Update Sensor UI with PageViewer from Sensor Updates
     private fun sensorMethod() {
