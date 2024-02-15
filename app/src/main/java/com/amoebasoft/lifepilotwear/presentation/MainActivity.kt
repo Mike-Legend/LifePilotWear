@@ -9,6 +9,8 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.media.Image
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -55,6 +57,10 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private var lastStepTimeNs: Long = 0
     private var stepCount: Int = 0
     private var start = 0
+    private lateinit var handler: Handler
+    private lateinit var runnable: Runnable
+    private var startTime: Long = 0
+    private var isRunning = false
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -205,7 +211,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             start += 1
             viewPager.currentItem = 1
         }
-        timerSet()
+        timeSet()
     }
     private fun setupViewPagerListener() {
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
@@ -217,11 +223,39 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         })
     }
     // Set home time
-    fun timerSet() {
+    fun timeSet() {
         val timeEdit = findViewById<TextView>(R.id.time)
         val formatter = DateTimeFormatter.ofPattern("HH:mm")
         val curTime = LocalDateTime.now().format(formatter)
         timeEdit.setText(curTime)
+    }
+    fun timerSet(view: View) {
+        handler = Handler(Looper.getMainLooper())
+        var elapsedTime = 0L
+        if (isRunning) {
+            elapsedTime = System.currentTimeMillis() - startTime
+        } else {
+            startTime = System.currentTimeMillis() - elapsedTime
+        }
+        runnable = object : Runnable {
+            override fun run() {
+                val currentTime = System.currentTimeMillis()
+                elapsedTime = if (isRunning) currentTime - startTime else elapsedTime
+
+                val millis = elapsedTime % 1000
+                val seconds = (elapsedTime / 1000 % 60).toInt()
+                val minutes = (elapsedTime / (1000 * 60) % 60).toInt()
+                val hours = (elapsedTime / (1000 * 60 * 60) % 24).toInt()
+
+                val time = String.format("%02d:%02d:%02d:%03d", hours, minutes, seconds, millis)
+                findViewById<TextView>(R.id.timerText).text = time
+
+                if (isRunning) {
+                    handler.postDelayed(this, 10)
+                }
+            }
+        }
+        handler.post(runnable)
     }
 
     //OnClicks for buttons
@@ -252,21 +286,30 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         }
         else if(id == R.id.buttonStopwatch) {
             setContentView(R.layout.timer)
-            timerSet()
+            timeSet()
+            timerSet(view)
         }
         else if(id == R.id.Timerbuttonplay) {
             if(findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE) {
                 findViewById<ImageView>(R.id.TimerPlay).visibility = View.GONE
                 findViewById<ImageView>(R.id.TimerPause).visibility = View.VISIBLE
                 //start time
+                isRunning = true
+                timerSet(view)
             } else {
                 findViewById<ImageView>(R.id.TimerPlay).visibility = View.VISIBLE
                 findViewById<ImageView>(R.id.TimerPause).visibility = View.GONE
                 //pause time
+                isRunning = false
             }
         }
         else if(id == R.id.TimerResetbutton) {
-            //reset timer
+            findViewById<ImageView>(R.id.TimerPlay).visibility = View.VISIBLE
+            findViewById<ImageView>(R.id.TimerPause).visibility = View.GONE
+            //pause and reset time
+            isRunning = false
+            timerSet(view)
+            findViewById<TextView>(R.id.timerText).text = "00:00:00:000"
         }
         else if(id == R.id.buttonUser) {
 
