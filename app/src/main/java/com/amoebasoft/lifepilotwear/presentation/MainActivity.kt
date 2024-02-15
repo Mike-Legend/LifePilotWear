@@ -14,7 +14,6 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -45,7 +44,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private var mAuth: FirebaseAuth? = null
     var user: FirebaseUser? = null
     var db: FirebaseFirestore = FirebaseFirestore.getInstance()
-
     //Initialize Sensor Data
     private val ALPHA = 0.8f
     private val STEP_THRESHOLD = 8
@@ -275,6 +273,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         else if(id == R.id.buttonStopwatch) {
             setContentView(R.layout.timer)
             timeSet()
+            //findViewById<FrameLayout>(R.id.timerlayout).setOnTouchListener { _: View, motionEvent: MotionEvent -> gestureDetector.onTouchEvent(motionEvent) }
         }
         else if(id == R.id.Timerbuttonplay) {
             if(findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE) {
