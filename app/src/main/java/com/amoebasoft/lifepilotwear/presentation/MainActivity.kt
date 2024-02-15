@@ -61,6 +61,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private lateinit var runnable: Runnable
     private var startTime: Long = 0
     private var isRunning = false
+    private var elapsedTime = 0L
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -184,7 +185,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             R.layout.buttons
         )
         val adapter = ViewPagerAdapter(images)
-
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -206,22 +206,13 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         })
         adapter.notifyDataSetChanged()
         viewPager.adapter = adapter
-
         if(start == 0) {
             start += 1
             viewPager.currentItem = 1
         }
         timeSet()
     }
-    private fun setupViewPagerListener() {
-        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                sensorMethod()
-            }
-        })
-    }
+
     // Set home time
     fun timeSet() {
         val timeEdit = findViewById<TextView>(R.id.time)
@@ -229,27 +220,27 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         val curTime = LocalDateTime.now().format(formatter)
         timeEdit.setText(curTime)
     }
+    //timer settings
     fun timerSet(view: View) {
         handler = Handler(Looper.getMainLooper())
-        var elapsedTime = 0L
-        if (isRunning) {
-            elapsedTime = System.currentTimeMillis() - startTime
+        if (!isRunning) {
+            startTime = System.currentTimeMillis()
         } else {
+            // When the timer is resumed, update the start time to maintain continuity
             startTime = System.currentTimeMillis() - elapsedTime
         }
         runnable = object : Runnable {
             override fun run() {
                 val currentTime = System.currentTimeMillis()
-                elapsedTime = if (isRunning) currentTime - startTime else elapsedTime
-
+                elapsedTime = currentTime - startTime
+                //timer calculations
                 val millis = elapsedTime % 1000
                 val seconds = (elapsedTime / 1000 % 60).toInt()
                 val minutes = (elapsedTime / (1000 * 60) % 60).toInt()
                 val hours = (elapsedTime / (1000 * 60 * 60) % 24).toInt()
-
                 val time = String.format("%02d:%02d:%02d:%03d", hours, minutes, seconds, millis)
+                //update timer UI
                 findViewById<TextView>(R.id.timerText).text = time
-
                 if (isRunning) {
                     handler.postDelayed(this, 10)
                 }
@@ -257,7 +248,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         }
         handler.post(runnable)
     }
-
     //OnClicks for buttons
     override fun onClick(view: View?) {
         val id = view?.id
@@ -287,7 +277,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         else if(id == R.id.buttonStopwatch) {
             setContentView(R.layout.timer)
             timeSet()
-            timerSet(view)
         }
         else if(id == R.id.Timerbuttonplay) {
             if(findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE) {
@@ -309,13 +298,16 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             //pause and reset time
             isRunning = false
             timerSet(view)
-            findViewById<TextView>(R.id.timerText).text = "00:00:00:000"
+            handler.postDelayed({
+                //reset the timer after delay to finish tasks
+                findViewById<TextView>(R.id.timerText).text = "00:00:00:000"
+                //reset elapsed time
+                elapsedTime = 0
+            },50)
         }
         else if(id == R.id.buttonUser) {
-
         }
         else if(id == R.id.buttonSettings) {
-
         }
     }
 }
