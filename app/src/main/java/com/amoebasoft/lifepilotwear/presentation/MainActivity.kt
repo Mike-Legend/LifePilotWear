@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -188,18 +189,21 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         }
         else if(id == R.id.buttonStopwatch) {
             setContentView(R.layout.timer)
+            timerSet()
         }
         else if(id == R.id.Timerbuttonplay) {
-            //setContentView(R.layout.timer)
             if(findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE) {
-                findViewById<ImageView>(R.id.TimerPlay).visibility == View.GONE
-                findViewById<ImageView>(R.id.TimerPause).visibility == View.VISIBLE
+                findViewById<ImageView>(R.id.TimerPlay).visibility = View.GONE
+                findViewById<ImageView>(R.id.TimerPause).visibility = View.VISIBLE
                 //start time
             } else {
-                findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE
-                findViewById<ImageView>(R.id.TimerPause).visibility == View.GONE
+                findViewById<ImageView>(R.id.TimerPlay).visibility = View.VISIBLE
+                findViewById<ImageView>(R.id.TimerPause).visibility = View.GONE
                 //pause time
             }
+        }
+        else if(id == R.id.TimerResetbutton) {
+            //reset timer
         }
         else if(id == R.id.buttonUser) {
 
@@ -252,12 +256,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             start += 1
             viewPager.currentItem = 1
         }
-
-        // Set home time
-        val timeEdit = findViewById<EditText>(R.id.time)
-        val formatter = DateTimeFormatter.ofPattern("HH:mm")
-        val curTime = LocalDateTime.now().format(formatter)
-        timeEdit.setText(curTime)
+        timerSet()
     }
     private fun setupViewPagerListener() {
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
@@ -267,5 +266,12 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                 sensorMethod()
             }
         })
+    }
+    // Set home time
+    fun timerSet() {
+        val timeEdit = findViewById<TextView>(R.id.time)
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+        val curTime = LocalDateTime.now().format(formatter)
+        timeEdit.setText(curTime)
     }
 }
