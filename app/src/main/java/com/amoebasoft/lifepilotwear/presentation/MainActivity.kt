@@ -7,12 +7,17 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.transition.Scene
+import android.transition.Slide
+import android.transition.Transition
+import android.transition.TransitionManager
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -244,6 +249,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         }
         handler.post(runnable)
     }
+    //private val homeAnimation: Scene? = null
     //OnClicks for buttons
     override fun onClick(view: View?) {
         val id = view?.id
@@ -273,7 +279,11 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         else if(id == R.id.buttonStopwatch) {
             setContentView(R.layout.timer)
             timeSet()
-            //findViewById<FrameLayout>(R.id.timerlayout).setOnTouchListener { _: View, motionEvent: MotionEvent -> gestureDetector.onTouchEvent(motionEvent) }
+            /*var homeAnimation = Scene.getSceneForLayout(
+                findViewById<ViewGroup>(R.id.timerlayout),
+                R.layout.home,
+                this
+            )*/
         }
         else if(id == R.id.Timerbuttonplay) {
             if(findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE) {
