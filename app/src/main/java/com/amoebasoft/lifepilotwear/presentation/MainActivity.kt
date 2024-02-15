@@ -161,57 +161,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         super.onPause()
         mSensorManager.unregisterListener(this)
     }
-    //OnClicks for home buttons
-    override fun onClick(view: View?) {
-        val id = view?.id
-        if(id == R.id.buttonSync) {
-            findViewById<Button>(R.id.buttonSync).visibility = View.GONE
-            findViewById<FrameLayout>(R.id.workoutstart).visibility = View.VISIBLE
-        }
-        else if(id == R.id.checkbutton1) {
-            findViewById<Button>(R.id.workoutbutton1).setBackgroundColor(getResources().getColor(R.color.passGreen))
-        }
-        else if(id == R.id.xbutton1) {
-            findViewById<Button>(R.id.workoutbutton1).setBackgroundColor(getResources().getColor(R.color.deleteRed))
-        }
-        else if(id == R.id.checkbutton2) {
-            findViewById<Button>(R.id.workoutbutton2).setBackgroundColor(getResources().getColor(R.color.passGreen))
-        }
-        else if(id == R.id.xbutton2) {
-            findViewById<Button>(R.id.workoutbutton2).setBackgroundColor(getResources().getColor(R.color.deleteRed))
-        }
-        else if(id == R.id.buttonRuntimePermission) {
-            requestPermission()
-            findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
-        }
-        else if(id == R.id.buttonRunning) {
-
-        }
-        else if(id == R.id.buttonStopwatch) {
-            setContentView(R.layout.timer)
-            timerSet()
-        }
-        else if(id == R.id.Timerbuttonplay) {
-            if(findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE) {
-                findViewById<ImageView>(R.id.TimerPlay).visibility = View.GONE
-                findViewById<ImageView>(R.id.TimerPause).visibility = View.VISIBLE
-                //start time
-            } else {
-                findViewById<ImageView>(R.id.TimerPlay).visibility = View.VISIBLE
-                findViewById<ImageView>(R.id.TimerPause).visibility = View.GONE
-                //pause time
-            }
-        }
-        else if(id == R.id.TimerResetbutton) {
-            //reset timer
-        }
-        else if(id == R.id.buttonUser) {
-
-        }
-        else if(id == R.id.buttonSettings) {
-
-        }
-    }
     //Update Sensor UI with PageViewer from Sensor Updates
     private fun sensorMethod() {
         setContentView(R.layout.home)
@@ -273,5 +222,57 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         val formatter = DateTimeFormatter.ofPattern("HH:mm")
         val curTime = LocalDateTime.now().format(formatter)
         timeEdit.setText(curTime)
+    }
+
+    //OnClicks for buttons
+    override fun onClick(view: View?) {
+        val id = view?.id
+        if(id == R.id.buttonSync) {
+            findViewById<Button>(R.id.buttonSync).visibility = View.GONE
+            findViewById<FrameLayout>(R.id.workoutstart).visibility = View.VISIBLE
+        }
+        else if(id == R.id.checkbutton1) {
+            findViewById<Button>(R.id.workoutbutton1).setBackgroundColor(getResources().getColor(R.color.passGreen))
+        }
+        else if(id == R.id.xbutton1) {
+            findViewById<Button>(R.id.workoutbutton1).setBackgroundColor(getResources().getColor(R.color.deleteRed))
+        }
+        else if(id == R.id.checkbutton2) {
+            findViewById<Button>(R.id.workoutbutton2).setBackgroundColor(getResources().getColor(R.color.passGreen))
+        }
+        else if(id == R.id.xbutton2) {
+            findViewById<Button>(R.id.workoutbutton2).setBackgroundColor(getResources().getColor(R.color.deleteRed))
+        }
+        else if(id == R.id.buttonRuntimePermission) {
+            requestPermission()
+            findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
+        }
+        else if(id == R.id.buttonRunning) {
+
+        }
+        else if(id == R.id.buttonStopwatch) {
+            setContentView(R.layout.timer)
+            timerSet()
+        }
+        else if(id == R.id.Timerbuttonplay) {
+            if(findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE) {
+                findViewById<ImageView>(R.id.TimerPlay).visibility = View.GONE
+                findViewById<ImageView>(R.id.TimerPause).visibility = View.VISIBLE
+                //start time
+            } else {
+                findViewById<ImageView>(R.id.TimerPlay).visibility = View.VISIBLE
+                findViewById<ImageView>(R.id.TimerPause).visibility = View.GONE
+                //pause time
+            }
+        }
+        else if(id == R.id.TimerResetbutton) {
+            //reset timer
+        }
+        else if(id == R.id.buttonUser) {
+
+        }
+        else if(id == R.id.buttonSettings) {
+
+        }
     }
 }
