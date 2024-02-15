@@ -182,6 +182,19 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             requestPermission()
             findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
         }
+        else if(id == R.id.buttonRunning) {
+
+        }
+        else if(id == R.id.buttonStopwatch) {
+            setContentView(R.layout.timer)
+
+        }
+        else if(id == R.id.buttonUser) {
+
+        }
+        else if(id == R.id.buttonSettings) {
+
+        }
     }
     //Update Sensor UI with PageViewer from Sensor Updates
     private fun sensorMethod() {
