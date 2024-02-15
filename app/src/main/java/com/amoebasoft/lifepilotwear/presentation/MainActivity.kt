@@ -57,11 +57,13 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private var lastStepTimeNs: Long = 0
     private var stepCount: Int = 0
     private var start = 0
+    //timer data
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
     private var startTime: Long = 0
     private var isRunning = false
     private var elapsedTime = 0L
+    //sensor permission data
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -133,14 +135,12 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             requestPermissionLauncher.launch(PERMISSION_BODY_SENSORS)
         }
     }
-
     //OnStartup for App
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             setContentView(R.layout.home)
             sensorMethod()
-
             //Google Sign In variables using dummy parameters for now
             gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id)).requestEmail().build()
@@ -149,7 +149,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             user = mAuth!!.getCurrentUser() //is null if user is not signed in
             account = GoogleSignIn.getLastSignedInAccount(this) //is null if user is not signed in
         }
-
         //Sensor Requirements
         mSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)
@@ -212,7 +211,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         }
         timeSet()
     }
-
     // Set home time
     fun timeSet() {
         val timeEdit = findViewById<TextView>(R.id.time)
