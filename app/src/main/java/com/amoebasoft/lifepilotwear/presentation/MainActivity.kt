@@ -38,9 +38,13 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import android.view.MotionEvent
+import android.view.GestureDetector
+import androidx.activity.viewModels
 
 
-class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListener {
+
+class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListener, GestureDetector.OnGestureListener {
 
     //Google Sign in variables
     var gso: GoogleSignInOptions? = null
@@ -66,6 +70,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private var startTime: Long = 0
     private var isRunning = false
     private var elapsedTime = 0L
+    private lateinit var gestureDetector: GestureDetector
     //sensor permission data
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -144,6 +149,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         setContent {
             setContentView(R.layout.home)
             sensorMethod()
+            gestureDetector = GestureDetector(this, this)
             //Google Sign In variables using dummy parameters for now
             gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id)).requestEmail().build()
@@ -160,6 +166,33 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         //menBMR = 66.47 + (6.24 x 160) + (12.7 x 70) - (6.755 x 28) = 1764.13
         //womenBMR = 655.1 + (4.35 x weight) + (4.7 x height) - (4.7 x age)
     }
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
+    }
+    override fun onDown(p0: MotionEvent): Boolean {
+        return false
+    }
+    override fun onShowPress(p0: MotionEvent) {
+    }
+    override fun onSingleTapUp(p0: MotionEvent): Boolean {
+        return false
+    }
+    override fun onScroll(p0: MotionEvent?, p1: MotionEvent, p2: Float, p3: Float): Boolean {
+        return false
+    }
+    override fun onLongPress(p0: MotionEvent) {
+    }
+    override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+        val deltaX = e1?.let { e2.x - it.x } ?: 0f
+        val threshold = 100
+        if (deltaX > threshold) {
+            // Swiped from left to right
+            // Transition back to the home layout
+            setContentView(R.layout.home)
+        }
+        return true
+    }
+
     //Sensor start and Stops
     override fun onResume() {
         super.onResume()
@@ -279,6 +312,11 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         else if(id == R.id.buttonStopwatch) {
             setContentView(R.layout.timer)
             timeSet()
+            findViewById<FrameLayout>(R.id.timerlayout).setOnTouchListener { _, event ->
+                gestureDetector.onTouchEvent(event)
+            }
+
+
             /*var homeAnimation = Scene.getSceneForLayout(
                 findViewById<ViewGroup>(R.id.timerlayout),
                 R.layout.home,
