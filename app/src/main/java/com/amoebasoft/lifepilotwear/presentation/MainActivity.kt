@@ -59,6 +59,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private var startTime: Long = 0
     private var isRunning = false
     private var elapsedTime = 0L
+    private var backvariable = false
     //sensor permission data
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -205,6 +206,10 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             start += 1
             viewPager.currentItem = 1
         }
+        if(backvariable) {
+            backvariable = false
+            viewPager.currentItem = 2
+        }
         timeSet()
     }
     // Set home time
@@ -303,6 +308,10 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             setContentView(R.layout.user)
         }
         else if(id == R.id.buttonSettings) {
+        }
+        else if(id == R.id.tempback1) {
+            backvariable = true
+            sensorMethod()
         }
     }
 }
