@@ -10,14 +10,8 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.transition.Scene
-import android.transition.Slide
-import android.transition.Transition
-import android.transition.TransitionManager
 import android.util.Log
-import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -38,13 +32,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import android.view.MotionEvent
-import android.view.GestureDetector
-import androidx.activity.viewModels
 
-
-
-class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListener, GestureDetector.OnGestureListener {
+class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListener {
 
     //Google Sign in variables
     var gso: GoogleSignInOptions? = null
@@ -70,7 +59,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private var startTime: Long = 0
     private var isRunning = false
     private var elapsedTime = 0L
-    private lateinit var gestureDetector: GestureDetector
     //sensor permission data
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -149,7 +137,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         setContent {
             setContentView(R.layout.home)
             sensorMethod()
-            gestureDetector = GestureDetector(this, this)
             //Google Sign In variables using dummy parameters for now
             gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id)).requestEmail().build()
@@ -166,42 +153,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         //menBMR = 66.47 + (6.24 x 160) + (12.7 x 70) - (6.755 x 28) = 1764.13
         //womenBMR = 655.1 + (4.35 x weight) + (4.7 x height) - (4.7 x age)
     }
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (gestureDetector != null) {
-            return gestureDetector!!.onTouchEvent(event) || super.onTouchEvent(event)
-        }
-        return super.onTouchEvent(event)
-    }
-    override fun onDown(p0: MotionEvent): Boolean {
-        return false
-    }
-    override fun onShowPress(p0: MotionEvent) {
-    }
-    override fun onSingleTapUp(p0: MotionEvent): Boolean {
-        return false
-    }
-    override fun onScroll(p0: MotionEvent?, p1: MotionEvent, p2: Float, p3: Float): Boolean {
-        return false
-    }
-    override fun onLongPress(p0: MotionEvent) {
-    }
-    override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-        val deltaX = if (e1 != null) e2.x - e1.x else 0f
-        val threshold = 10
-        if (deltaX > threshold) {
-            // Swiped from left to right
-            // Perform a transition to the home layout
-            val sceneRoot = findViewById<ViewGroup>(android.R.id.content)
-            val transition = Slide(Gravity.START)
-            TransitionManager.beginDelayedTransition(sceneRoot, transition)
-
-            // Replace the current layout with the home layout
-            setContentView(R.layout.home)
-            sensorMethod()
-        }
-        return true
-    }
-
     //Sensor start and Stops
     override fun onResume() {
         super.onResume()
@@ -291,7 +242,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         }
         handler.post(runnable)
     }
-    //private val homeAnimation: Scene? = null
     //OnClicks for buttons
     override fun onClick(view: View?) {
         val id = view?.id
@@ -321,17 +271,6 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         else if(id == R.id.buttonStopwatch) {
             setContentView(R.layout.timer)
             timeSet()
-            gestureDetector = GestureDetector(this, this)
-            findViewById<FrameLayout>(R.id.timerlayout).setOnTouchListener { _, event ->
-                gestureDetector.onTouchEvent(event)
-            }
-
-
-            /*var homeAnimation = Scene.getSceneForLayout(
-                findViewById<ViewGroup>(R.id.timerlayout),
-                R.layout.home,
-                this
-            )*/
         }
         else if(id == R.id.Timerbuttonplay) {
             if(findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE) {
@@ -361,6 +300,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             },50)
         }
         else if(id == R.id.buttonUser) {
+            setContentView(R.layout.user)
         }
         else if(id == R.id.buttonSettings) {
         }
