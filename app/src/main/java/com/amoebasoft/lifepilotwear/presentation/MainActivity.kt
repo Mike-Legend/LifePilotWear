@@ -187,7 +187,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     }
     override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
         val deltaX = if (e1 != null) e2.x - e1.x else 0f
-        val threshold = 100
+        val threshold = 10
         if (deltaX > threshold) {
             // Swiped from left to right
             // Perform a transition to the home layout
@@ -197,7 +197,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
 
             // Replace the current layout with the home layout
             setContentView(R.layout.home)
-            sensorMethod() // Ensure any necessary UI updates or initializations are performed
+            sensorMethod()
         }
         return true
     }
