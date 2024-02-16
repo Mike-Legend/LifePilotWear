@@ -167,7 +167,10 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         //womenBMR = 655.1 + (4.35 x weight) + (4.7 x height) - (4.7 x age)
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
+        if (gestureDetector != null) {
+            return gestureDetector!!.onTouchEvent(event) || super.onTouchEvent(event)
+        }
+        return super.onTouchEvent(event)
     }
     override fun onDown(p0: MotionEvent): Boolean {
         return false
@@ -183,12 +186,18 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     override fun onLongPress(p0: MotionEvent) {
     }
     override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-        val deltaX = e1?.let { e2.x - it.x } ?: 0f
+        val deltaX = if (e1 != null) e2.x - e1.x else 0f
         val threshold = 100
         if (deltaX > threshold) {
             // Swiped from left to right
-            // Transition back to the home layout
+            // Perform a transition to the home layout
+            val sceneRoot = findViewById<ViewGroup>(android.R.id.content)
+            val transition = Slide(Gravity.START)
+            TransitionManager.beginDelayedTransition(sceneRoot, transition)
+
+            // Replace the current layout with the home layout
             setContentView(R.layout.home)
+            sensorMethod() // Ensure any necessary UI updates or initializations are performed
         }
         return true
     }
@@ -312,6 +321,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         else if(id == R.id.buttonStopwatch) {
             setContentView(R.layout.timer)
             timeSet()
+            gestureDetector = GestureDetector(this, this)
             findViewById<FrameLayout>(R.id.timerlayout).setOnTouchListener { _, event ->
                 gestureDetector.onTouchEvent(event)
             }
