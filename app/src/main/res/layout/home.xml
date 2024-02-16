@@ -37,7 +37,6 @@
         android:layout_marginTop="3dp"
         android:background="@null"
         android:hint="18:03"
-        android:inputType="time"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"

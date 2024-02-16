@@ -11,14 +11,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/timerlayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/timerlayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:src="@drawable/gradientblackbackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +45,6 @@
             android:layout_marginTop="3dp"
             android:background="@null"
             android:hint="18:03"
-            android:inputType="time"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="18sp"
