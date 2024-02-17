@@ -11,16 +11,29 @@
         android:layout_height="match_parent" >
 
         <TextView
+            android:id="@+id/bpmwrittenText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:fontFamily="serif-monospace"
+            android:text="BPM"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/bpmtext"
             android:layout_width="80dp"
             android:layout_height="118dp"
-            android:layout_marginTop="-6dp"
+            android:layout_marginTop="-11dp"
             android:layout_marginEnd="5dp"
             android:gravity="center|left"
             android:maxLength="5"
             android:text="120.8"
-            android:textSize="30sp"
             android:textColor="@color/white"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/bpmimage"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,9 +43,23 @@
             android:layout_width="36dp"
             android:layout_height="45dp"
             android:layout_marginEnd="95dp"
-            android:layout_marginBottom="85dp"
+            android:layout_marginBottom="95dp"
             android:src="@drawable/bpm"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/kcalwrittenText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="110dp"
+            android:fontFamily="serif-monospace"
+            android:text="KCAL"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -56,9 +83,9 @@
             android:layout_width="54dp"
             android:layout_height="65dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="95dp"
-            android:layout_marginBottom="85dp"
+            android:layout_marginBottom="90dp"
             android:src="@drawable/calories"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,17 +93,31 @@
             app:layout_constraintTop_toBottomOf="@+id/bpmimage" />
 
         <TextView
+            android:id="@+id/stepswrittenText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="serif-monospace"
+            android:text="STEPS"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
             android:id="@+id/setpstext"
             android:layout_width="104dp"
             android:layout_height="117dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="-17dp"
+            android:layout_marginTop="-20dp"
             android:layout_marginEnd="-15dp"
             android:gravity="center|left"
             android:maxLength="5"
             android:text="10872"
-            android:textSize="30sp"
             android:textColor="@color/white"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/shoeimage"
             app:layout_constraintTop_toBottomOf="@+id/bpmtext" />
@@ -85,9 +126,10 @@
             android:id="@+id/shoeimage"
             android:layout_width="44dp"
             android:layout_height="50dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="-17dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="-28dp"
             android:layout_marginEnd="95dp"
+            android:scaleX=".9"
             android:src="@drawable/shoe"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
