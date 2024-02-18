@@ -44,7 +44,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:text="Workouts"
+                    android:text="WORKOUTS"
+                    android:fontFamily="@font/serifmonospace"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
