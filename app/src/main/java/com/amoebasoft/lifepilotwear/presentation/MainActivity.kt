@@ -53,6 +53,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private var lastStepTimeNs: Long = 0
     private var stepCount: Int = 0
     private var start = 0
+    private var isSensorScreen = false
     //timer stopwatch data
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
@@ -173,52 +174,57 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     }
     //Update Sensor UI with PageViewer from Sensor Updates
     private fun sensorMethod() {
-        setContentView(R.layout.home)
-        //permission recheck on load
-        if (ContextCompat.checkSelfPermission(this, PERMISSION_BODY_SENSORS)
-            == PackageManager.PERMISSION_GRANTED) {
-            findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
-        }
-        // Get ViewPager reference
-        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
-        // Set adapter for ViewPager
-        val images = mutableListOf(
-            R.layout.quickdata,
-            R.layout.sync,
-            R.layout.buttons
-        )
-        val adapter = ViewPagerAdapter(images)
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                //navigation update
-                if(position == 0) {
-                    findViewById<ImageView>(R.id.maindot1).visibility = View.VISIBLE
-                    findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
-                    findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
-                } else if (position == 1) {
-                    findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
-                    findViewById<ImageView>(R.id.maindot2).visibility = View.VISIBLE
-                    findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
-                } else if (position == 2) {
-                    findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
-                    findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
-                    findViewById<ImageView>(R.id.maindot3).visibility = View.VISIBLE
-                }
+
+            setContentView(R.layout.home)
+            //permission recheck on load
+            if (ContextCompat.checkSelfPermission(this, PERMISSION_BODY_SENSORS)
+                == PackageManager.PERMISSION_GRANTED) {
+                findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
             }
-        })
-        adapter.notifyDataSetChanged()
-        viewPager.adapter = adapter
-        if(start == 0) {
-            start += 1
-            viewPager.currentItem = 1
-        }
-        if(backvariable) {
-            backvariable = false
-            //not working still
-            //viewPager.currentItem = 2
-        }
-        timeSet()
+            // Get ViewPager reference
+            val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+            // Set adapter for ViewPager
+            val images = mutableListOf(
+                R.layout.quickdata,
+                R.layout.sync,
+                R.layout.buttons
+            )
+            val adapter = ViewPagerAdapter(images)
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    //navigation update
+                    if(position == 0) {
+                        findViewById<ImageView>(R.id.maindot1).visibility = View.VISIBLE
+                        findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
+                        findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
+                        isSensorScreen = true
+                    } else if (position == 1) {
+                        findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
+                        findViewById<ImageView>(R.id.maindot2).visibility = View.VISIBLE
+                        findViewById<ImageView>(R.id.maindot3).visibility = View.GONE
+                        isSensorScreen = false
+                    } else if (position == 2) {
+                        findViewById<ImageView>(R.id.maindot1).visibility = View.GONE
+                        findViewById<ImageView>(R.id.maindot2).visibility = View.GONE
+                        findViewById<ImageView>(R.id.maindot3).visibility = View.VISIBLE
+                        isSensorScreen = false
+                    }
+                }
+            })
+            adapter.notifyDataSetChanged()
+            viewPager.adapter = adapter
+            if(start == 0) {
+                start += 1
+                viewPager.currentItem = 1
+            }
+            if(backvariable) {
+                backvariable = false
+                //not working still
+                //viewPager.currentItem = 2
+            }
+            timeSet()
+
     }
     // Set home time
     fun timeSet() {
@@ -272,8 +278,12 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                 val minutes = (runningelapsedTime / (1000 * 60) % 60).toInt()
                 val hours = (runningelapsedTime / (1000 * 60 * 60) % 24).toInt()
                 val time = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+                //using estimated steps than actual for now
+                //val km = String.format("%.2f km", stepCount * 0.000762)
+                val km = String.format("%.2f km", (runningelapsedTime * .000002).toDouble())
                 //update timer UI
                 findViewById<TextView>(R.id.runningText).text = time
+                findViewById<TextView>(R.id.runningkm).text = km
                 if (runningisRunning) {
                     runninghandler.postDelayed(this, 10)
                 }

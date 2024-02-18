@@ -142,7 +142,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/runningmiles"
+            android:id="@+id/runningkm"
             android:layout_width="130dp"
             android:layout_height="39dp"
             android:layout_marginStart="20dp"
