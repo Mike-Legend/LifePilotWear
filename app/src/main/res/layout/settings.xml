@@ -51,9 +51,10 @@
             android:id="@+id/Settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="@font/serifmonospace"
             android:text="SETTINGS"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -80,7 +81,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                        <!--<androidx.constraintlayout.widget.ConstraintLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/settings1"
                             android:layout_width="match_parent"
                             android:layout_height="115dp">
@@ -115,7 +116,7 @@
                                     app:layout_constraintEnd_toEndOf="@+id/settings1"
                                     app:layout_constraintStart_toStartOf="@+id/settings1"
                                     app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/settings2"
@@ -143,11 +144,12 @@
                                     android:elevation="2dp"
                                     android:scaleX="1.5"
                                     android:scaleY="1.5"
+                                    android:trackTint="@color/switch_track_selector"
+                                    android:thumbTint="@color/switch_thumb_selector"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="@+id/settings2"
                                     app:layout_constraintStart_toStartOf="@+id/settings2"
                                     app:layout_constraintTop_toTopOf="parent" />
-
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>

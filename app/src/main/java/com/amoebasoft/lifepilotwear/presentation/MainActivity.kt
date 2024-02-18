@@ -380,6 +380,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             setContentView(R.layout.user)
         }
         else if(id == R.id.buttonSettings) {
+            setContentView(R.layout.settings)
         }
         else if(id == R.id.tempback1) {
             backvariable = true
