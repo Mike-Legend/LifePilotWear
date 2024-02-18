@@ -47,4 +47,71 @@
             app:layout_constraintStart_toStartOf="@+id/userlayout2"
             app:layout_constraintTop_toTopOf="@+id/userlayout2" />
 
+        <TextView
+            android:id="@+id/weightwrittentext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/serifmonospace"
+            android:text="WEIGHT"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/heightwrittentext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:fontFamily="@font/serifmonospace"
+            android:text="HEIGHT"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bmiwrittentext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/serifmonospace"
+            android:text="BMI"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/summarytext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/serifmonospace"
+            android:text="SUMMARY"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/userlayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="20dp"
+            android:minWidth="20dp"
+            android:indeterminate="true"
+            android:progressTint="@color/royalPurple"
+            android:max="180"
+            android:progress="30"
+            android:scaleX="3"
+            android:scaleY="3"
+            app:layout_constraintBottom_toBottomOf="@+id/userlayout2"
+            app:layout_constraintEnd_toEndOf="@+id/userlayout2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/userlayout2" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
