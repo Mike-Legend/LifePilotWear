@@ -294,6 +294,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     //OnClicks for buttons
     override fun onClick(view: View?) {
         val id = view?.id
+        //sync buttons
         if(id == R.id.buttonSync) {
             findViewById<Button>(R.id.buttonSync).visibility = View.GONE
             findViewById<FrameLayout>(R.id.workoutstart).visibility = View.VISIBLE
@@ -318,6 +319,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             setContentView(R.layout.running)
             runningtimerSet(view)
         }
+        //running buttons
         else if(id == R.id.runningbuttonplay) {
             if(findViewById<ImageView>(R.id.runningPlay).visibility == View.VISIBLE) {
                 findViewById<ImageView>(R.id.runningPlay).visibility = View.GONE
@@ -349,6 +351,7 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             setContentView(R.layout.timer)
             timeSet()
         }
+        //timer buttons
         else if(id == R.id.Timerbuttonplay) {
             if(findViewById<ImageView>(R.id.TimerPlay).visibility == View.VISIBLE) {
                 findViewById<ImageView>(R.id.TimerPlay).visibility = View.GONE
@@ -376,12 +379,15 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
                 elapsedTime = 0
             },50)
         }
+        //user button
         else if(id == R.id.buttonUser) {
             setContentView(R.layout.user)
         }
+        //settings button
         else if(id == R.id.buttonSettings) {
             setContentView(R.layout.settings)
         }
+        //back button, temp for now
         else if(id == R.id.tempback1) {
             backvariable = true
             sensorMethod()
