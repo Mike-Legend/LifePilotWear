@@ -53,12 +53,19 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
     private var lastStepTimeNs: Long = 0
     private var stepCount: Int = 0
     private var start = 0
-    //timer data
+    //timer stopwatch data
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
     private var startTime: Long = 0
     private var isRunning = false
     private var elapsedTime = 0L
+    //running timer data
+    private lateinit var runninghandler: Handler
+    private lateinit var runningrunnable: Runnable
+    private var runningstartTime: Long = 0
+    private var runningelapsedTime = 0L
+    private var runningisRunning = false
+    //back button
     private var backvariable = false
     //sensor permission data
     private val requestPermissionLauncher = registerForActivityResult(
@@ -247,6 +254,32 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         }
         handler.post(runnable)
     }
+    fun runningtimerSet(view: View) {
+        runninghandler = Handler(Looper.getMainLooper())
+        if (!runningisRunning) {
+            runningstartTime = System.currentTimeMillis()
+        } else {
+            // When the timer is resumed, update the start time to maintain continuity
+            runningstartTime = System.currentTimeMillis() - runningelapsedTime
+        }
+        runningrunnable = object : Runnable {
+            override fun run() {
+                val currentTime = System.currentTimeMillis()
+                runningelapsedTime = currentTime - runningstartTime
+                //timer calculations
+                val seconds = (runningelapsedTime / 1000 % 60).toInt()
+                val minutes = (runningelapsedTime / (1000 * 60) % 60).toInt()
+                val hours = (runningelapsedTime / (1000 * 60 * 60) % 24).toInt()
+                val time = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+                //update timer UI
+                findViewById<TextView>(R.id.runningText).text = time
+                if (runningisRunning) {
+                    runninghandler.postDelayed(this, 10)
+                }
+            }
+        }
+        runninghandler.post(runningrunnable)
+    }
     //OnClicks for buttons
     override fun onClick(view: View?) {
         val id = view?.id
@@ -271,7 +304,35 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
             findViewById<Button>(R.id.buttonRuntimePermission).visibility = View.GONE
         }
         else if(id == R.id.buttonRunning) {
-
+            setContentView(R.layout.running)
+            runningtimerSet(view)
+        }
+        else if(id == R.id.runningbuttonplay) {
+            if(findViewById<ImageView>(R.id.runningPlay).visibility == View.VISIBLE) {
+                findViewById<ImageView>(R.id.runningPlay).visibility = View.GONE
+                findViewById<ImageView>(R.id.runningPause).visibility = View.VISIBLE
+                //start time
+                runningisRunning = true
+                runningtimerSet(view)
+            } else {
+                findViewById<ImageView>(R.id.runningPlay).visibility = View.VISIBLE
+                findViewById<ImageView>(R.id.runningPause).visibility = View.GONE
+                //pause time
+                runningisRunning = false
+            }
+        }
+        else if(id == R.id.runningResetbutton) {
+            findViewById<ImageView>(R.id.runningPlay).visibility = View.VISIBLE
+            findViewById<ImageView>(R.id.runningPause).visibility = View.GONE
+            //pause and reset time
+            runningisRunning = false
+            runningtimerSet(view)
+            runninghandler.postDelayed({
+                //reset the timer after delay to finish tasks
+                findViewById<TextView>(R.id.runningText).text = "00:00:00"
+                //reset elapsed time
+                runningelapsedTime = 0
+            },50)
         }
         else if(id == R.id.buttonStopwatch) {
             setContentView(R.layout.timer)
