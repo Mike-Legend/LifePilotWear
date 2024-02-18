@@ -215,7 +215,8 @@ class MainActivity : ComponentActivity(), View.OnClickListener, SensorEventListe
         }
         if(backvariable) {
             backvariable = false
-            viewPager.currentItem = 2
+            //not working still
+            //viewPager.currentItem = 2
         }
         timeSet()
     }
