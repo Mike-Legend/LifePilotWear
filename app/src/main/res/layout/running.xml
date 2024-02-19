@@ -2,19 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/timerlayout"
+    android:id="@+id/runninglayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
     tools:viewBindingIgnore="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/timerlayout2"
+        android:id="@+id/runninglayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/timerlayout3"
+            android:id="@+id/runninglayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/gradientblackbackground"
@@ -49,12 +49,12 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/timerlayout3"
-            app:layout_constraintStart_toStartOf="@+id/timerlayout3"
-            app:layout_constraintTop_toTopOf="@+id/timerlayout3" />
+            app:layout_constraintEnd_toEndOf="@+id/runninglayout3"
+            app:layout_constraintStart_toStartOf="@+id/runninglayout3"
+            app:layout_constraintTop_toTopOf="@+id/runninglayout3" />
 
         <Button
-            android:id="@+id/Timerbuttonplay"
+            android:id="@+id/runningbuttonplay"
             android:layout_width="201dp"
             android:layout_height="60dp"
             android:layout_marginTop="150dp"
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/TimerPlay"
+            android:id="@+id/runningPlay"
             android:layout_width="52dp"
             android:layout_height="45dp"
             android:layout_marginStart="72dp"
@@ -85,7 +85,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
-            android:id="@+id/TimerPause"
+            android:id="@+id/runningPause"
             android:layout_width="52dp"
             android:layout_height="45dp"
             android:layout_marginStart="70dp"
@@ -103,12 +103,13 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
-            android:id="@+id/TimerResetbutton"
+            android:id="@+id/runningResetbutton"
             android:layout_width="27dp"
             android:layout_height="25dp"
-            android:layout_marginStart="78dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="36dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginBottom="55dp"
             android:background="#00FFFFFF"
             android:clickable="true"
             android:elevation="5dp"
@@ -122,17 +123,37 @@
             app:layout_constraintVertical_bias="0.705" />
 
         <TextView
-            android:id="@+id/timerText"
-            android:layout_width="172dp"
+            android:id="@+id/runningText"
+            android:layout_width="130dp"
             android:layout_height="39dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="11dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="31dp"
             android:layout_marginBottom="58dp"
             android:gravity="center"
-            android:text="00:00:00:000"
+            android:text="00:00:00"
             android:textColor="@color/white"
             android:textSize="25sp"
-            app:layout_constraintBottom_toTopOf="@+id/Timerbuttonplay"
+            app:layout_constraintBottom_toTopOf="@+id/runningbuttonplay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/runningkm"
+            android:layout_width="130dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="85dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginBottom="25dp"
+            android:gravity="center"
+            android:text="0.0km"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/runningbuttonplay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +164,7 @@
             android:id="@+id/DurationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="13dp"
             android:fontFamily="@font/serifmonospace"
             android:text="DURATION"
             android:textSize="16sp"

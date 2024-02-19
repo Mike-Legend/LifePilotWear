@@ -1,14 +1,16 @@
 <resources>
     <string name="app_name">LifePilotWear</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
     <string name="hello_world">From the Square world,\nHello, %1$s!</string>
     <string name="tile_label">Example tile</string>
     <string name="title_activity_presentation._main">presentation.MainActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="complication_label">Example complication</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Routines">Routines</string>
+    <string name="Analytics">Analytics</string>
+    <string name="Calendar">Calendar</string>
+    <string name="Profile">Profile</string>
+    <string name="logoDescription">LifePilot Logo</string>
+    <string name="signIn">Sign in</string>
+    <string name="server_client_id">919443612001-962ufmeo8ej2udoljvcri0j3u1geidgu.apps.googleusercontent.com</string>
 </resources>

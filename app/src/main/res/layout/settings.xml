@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settingslayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true">
+
+        <ImageView
+            android:id="@+id/settingslayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gradientblackbackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/tempback1"
+            android:layout_width="38dp"
+            android:layout_height="27dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="temp"
+            android:textSize="5sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.227"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.018" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:background="@null"
+            android:hint="18:03"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/settingslayout2"
+            app:layout_constraintStart_toStartOf="@+id/settingslayout2"
+            app:layout_constraintTop_toTopOf="@+id/settingslayout2" />
+
+        <TextView
+            android:id="@+id/Settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/serifmonospace"
+            android:text="SETTINGS"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ScrollView
+            android:id="@+id/SettingsListScroll"
+            android:layout_width="162dp"
+            android:layout_height="115dp"
+            app:layout_constraintBottom_toBottomOf="@+id/settingslayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/settingsholder"
+                    android:layout_width="160dp"
+                    android:layout_height="115dp"
+                    android:layout_marginTop="18dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:translationY="-18dp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/settings1"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp">
+
+                                <Button
+                                    android:id="@+id/settingsbutton1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:elevation="-2dp"
+                                    android:gravity="center_horizontal|top"
+                                    android:text="Sync"
+                                    android:textSize="27dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <Button
+                                    android:id="@+id/syncbuttonsettings"
+                                    android:layout_width="100dp"
+                                    android:layout_height="60dp"
+                                    android:layout_marginTop="30dp"
+                                    android:background="#00FFFFFF"
+                                    android:clickable="true"
+                                    android:cropToPadding="false"
+                                    android:elevation="2dp"
+                                    android:foreground="@drawable/multilayerreset"
+                                    android:onClick="onClick"
+                                    android:scaleX=".5"
+                                    android:scaleY=".7"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/settings1"
+                                    app:layout_constraintStart_toStartOf="@+id/settings1"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/settings2"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp">
+
+                                <Button
+                                    android:id="@+id/settingsbutton2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:elevation="-2dp"
+                                    android:gravity="center_horizontal|top"
+                                    android:text="Notifications"
+                                    android:textSize="18dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <Switch
+                                    android:id="@+id/notifswitch1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="15dp"
+                                    android:elevation="2dp"
+                                    android:scaleX="1.5"
+                                    android:scaleY="1.5"
+                                    android:trackTint="@color/switch_track_selector"
+                                    android:thumbTint="@color/switch_thumb_selector"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/settings2"
+                                    app:layout_constraintStart_toStartOf="@+id/settings2"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+        </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

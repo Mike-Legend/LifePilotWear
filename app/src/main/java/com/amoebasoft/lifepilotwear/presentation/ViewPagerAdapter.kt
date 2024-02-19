@@ -15,21 +15,17 @@ class ViewPagerAdapter (
     var images: MutableList<Int>
 ) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
     inner class ViewPagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-    //Adjust screen selections
-    private var start =+ 0
     //Active layout selected on swipe
     private var active = R.layout.quickdata
     //Global variable to for bpm sensor
     companion object {
-        var latestSensorValue: Float = 0f
+        var heartRateSensorValue: Float = 0f
+        var accelSensorValue: Int = 0
+        var calBurned: Float = 0f
+        var extraCal: Float = 0f
     }
     //Create ViewPager
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
-        if(start == 0) {
-            val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
-            start += 1
-            return ViewPagerViewHolder(view)
-        }
         val view = LayoutInflater.from(parent.context).inflate(active, parent, false)
         return ViewPagerViewHolder(view)
     }
@@ -45,7 +41,7 @@ class ViewPagerAdapter (
             R.layout.quickdata -> R.layout.quickdata
             R.layout.sync -> R.layout.sync
             R.layout.buttons -> R.layout.buttons
-            else -> R.layout.quickdata // Default to quickdata layout if unknown
+            else -> R.layout.sync // Default to sync layout if unknown
         }
 
         //Update ViewPager for new UI data
@@ -54,10 +50,17 @@ class ViewPagerAdapter (
         (holder.itemView as? ViewGroup)?.removeAllViews()
         (holder.itemView as? ViewGroup)?.addView(inflatedView)
 
-        // Update UI based on sensor data
+        // Update UI info
         if (activeLayoutRes == R.layout.quickdata) {
+            //sensor adjustments
             val bpmTextView = inflatedView.findViewById<TextView>(R.id.bpmtext)
-            bpmTextView.text = latestSensorValue.toString()
+            bpmTextView.text = heartRateSensorValue.toString()
+            val kcalTextView = inflatedView.findViewById<TextView>(R.id.kcaltext)
+            calBurned =  3.0f * 72.57f * (accelSensorValue / 1300.0f)
+            extraCal = if (heartRateSensorValue > 99) {5.0f} else {0f}
+            kcalTextView.text = (calBurned + extraCal).toString()
+            val stepTextView = inflatedView.findViewById<TextView>(R.id.setpstext)
+            stepTextView.text = accelSensorValue.toString()
         }
     }
 }
